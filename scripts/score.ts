@@ -2,13 +2,13 @@
 //
 // For each runs/<name>/, expects runs/<name>/tests/*.test.ts. Builds a
 // self-contained temp sandbox (target code + that suite + configs), runs Vitest
-// (coverage + precondition) and Stryker (mutation), reads the JSON reports and
-// extracts the metrics.
-//
-// Output: consolidated table (coverage, mutation score, # tests) + raw JSON.
+// (coverage + precondition) and Stryker (mutation), lints for test smells, and
+// extracts the paper's Table II metrics: coverage, mutation score (recall R),
+// precision (P), F1, and smell density - plus the per-run gap vs the ceiling.
 //
 // PRECONDITION: every test must pass against the correct code. Failing suites
-// are flagged and receive no mutation score.
+// are flagged and receive no metrics (a suite that fails on correct code would
+// have false positives, i.e. precision < 1).
 import { mkdtempSync, cpSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync, symlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve, dirname, join } from "node:path";
@@ -19,6 +19,8 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const runsDir = resolve(root, "runs");
 const targetSrc = resolve(root, "target", "src");
+const smellsConfig = resolve(root, "eslint-smells.config.cjs");
+const CEILING = "ceiling";
 
 interface Coverage {
   lines: number;
@@ -37,12 +39,29 @@ interface Mutation {
   mutationScore: number;
 }
 
+interface Smells {
+  total: number;
+  density: number;
+}
+
+interface Gaps {
+  coverageLines?: number;
+  coverageBranches?: number;
+  mutationScore?: number;
+  f1?: number;
+  smellDensity?: number;
+}
+
 interface RunResult {
   runName: string;
   precondition: boolean;
   numTests?: number;
   coverage?: Coverage | null;
   mutation?: Mutation | null;
+  precision?: number;
+  f1?: number;
+  smells?: Smells;
+  gaps?: Gaps;
 }
 
 // --- temp sandbox helpers ----------------------------------------------
@@ -129,29 +148,35 @@ export default defineConfig({
 
 // --- measurements ------------------------------------------------------
 
-function precheck(sandbox: string): { pass: boolean; output?: string } {
+function precheck(sandbox: string): { pass: boolean; output: string } {
   // Does the suite pass against the correct code?
   try {
     execSync("npx vitest run --coverage", { cwd: sandbox, stdio: "pipe" });
-    return { pass: true };
+    return { pass: true, output: "" };
   } catch (e) {
-    const err = e as { stdout?: Buffer };
-    return { pass: false, output: err.stdout?.toString() ?? String(e) };
+    const err = e as { stdout?: Buffer; stderr?: Buffer };
+    const out = `${err.stdout?.toString() ?? ""}\n${err.stderr?.toString() ?? ""}`.trim();
+    return { pass: false, output: out || String(e) };
   }
 }
 
 function readCoverage(sandbox: string): Coverage | null {
   const p = join(sandbox, "coverage", "coverage-summary.json");
   if (!existsSync(p)) return null;
-  const data = JSON.parse(readFileSync(p, "utf8")) as Record<string, any>;
-  const fileKey = Object.keys(data).find((k) => k.includes("number-validator.ts"));
-  const entry = fileKey ? data[fileKey] : data.total;
-  return {
-    lines: entry.lines.pct,
-    branches: entry.branches.pct,
-    statements: entry.statements.pct,
-    functions: entry.functions.pct,
-  };
+  try {
+    const data = JSON.parse(readFileSync(p, "utf8")) as Record<string, any>;
+    const fileKey = Object.keys(data).find((k) => k.includes("number-validator.ts"));
+    const entry = fileKey ? data[fileKey] : data.total;
+    if (!entry) return null;
+    return {
+      lines: entry.lines.pct,
+      branches: entry.branches.pct,
+      statements: entry.statements.pct,
+      functions: entry.functions.pct,
+    };
+  } catch {
+    return null;
+  }
 }
 
 // Stryker's JSON reporter writes to reports/mutation/mutation.json. Search for
@@ -192,9 +217,12 @@ function runMutation(sandbox: string): Mutation | null {
   }
   const p = findMutationReport(sandbox);
   if (!p) return null;
-  const report = JSON.parse(readFileSync(p, "utf8")) as {
-    files?: Record<string, { mutants?: Array<{ status: string }> }>;
-  };
+  let report: { files?: Record<string, { mutants?: Array<{ status: string }> }> };
+  try {
+    report = JSON.parse(readFileSync(p, "utf8"));
+  } catch {
+    return null;
+  }
   let killed = 0, survived = 0, timeout = 0, noCov = 0, other = 0, total = 0;
   for (const file of Object.values(report.files ?? {})) {
     for (const m of file.mutants ?? []) {
@@ -221,16 +249,86 @@ function runMutation(sandbox: string): Mutation | null {
   };
 }
 
+// Total structural test-smell occurrences in a suite (eslint-plugin-vitest).
+// Semantic smells (Mystery Guest, contextual Magic Number) are out of scope.
+function countSmells(runName: string): number {
+  const testsDir = join(runsDir, runName, "tests");
+  let out = "";
+  try {
+    out = execSync(
+      `npx eslint --no-eslintrc -c "${smellsConfig}" --ext .ts --format json "${testsDir}"`,
+      { cwd: root, stdio: "pipe" }
+    ).toString();
+  } catch (e) {
+    const err = e as { stdout?: Buffer };
+    out = err.stdout?.toString() ?? "";
+  }
+  if (!out) return 0;
+  try {
+    const report = JSON.parse(out) as Array<{ messages?: unknown[] }>;
+    return report.reduce((acc, f) => acc + (f.messages?.length ?? 0), 0);
+  } catch {
+    return 0;
+  }
+}
+
+// Strip comments and string/template literals so commented-out or quoted
+// "it("/"test(" do not inflate the count.
+function stripNonCode(src: string): string {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, " ")
+    .replace(/\/\/[^\n]*/g, " ")
+    .replace(/'(?:\\.|[^'\\])*'/g, "''")
+    .replace(/"(?:\\.|[^"\\])*"/g, '""')
+    .replace(/`(?:\\.|[^`\\])*`/g, "``");
+}
+
 function countTests(runName: string): number {
   const runTests = join(runsDir, runName, "tests");
   let n = 0;
-  for (const f of readdirSync(runTests)) {
+  let files: string[];
+  try {
+    files = readdirSync(runTests);
+  } catch {
+    return 0;
+  }
+  for (const f of files) {
     if (!f.endsWith(".test.ts")) continue;
-    const src = readFileSync(join(runTests, f), "utf8");
-    n += (src.match(/\b(it|test)\s*\(/g) ?? []).length;
+    try {
+      const src = stripNonCode(readFileSync(join(runTests, f), "utf8"));
+      n += (src.match(/\b(it|test)\s*\(/g) ?? []).length;
+    } catch {
+      continue;
+    }
   }
   return n;
 }
+
+// F1 from recall R and precision P (both as fractions), returned as a percent.
+const f1Percent = (r: number, p: number): number =>
+  p + r > 0 ? (2 * p * r) / (p + r) * 100 : 0;
+
+function computeGaps(ceiling: RunResult, run: RunResult): Gaps {
+  const gaps: Gaps = {};
+  if (ceiling.coverage && run.coverage) {
+    gaps.coverageLines = ceiling.coverage.lines - run.coverage.lines;
+    gaps.coverageBranches = ceiling.coverage.branches - run.coverage.branches;
+  }
+  if (ceiling.mutation && run.mutation) {
+    gaps.mutationScore = ceiling.mutation.mutationScore - run.mutation.mutationScore;
+  }
+  if (ceiling.f1 !== undefined && run.f1 !== undefined) {
+    gaps.f1 = ceiling.f1 - run.f1;
+  }
+  if (ceiling.smells && run.smells) {
+    gaps.smellDensity = ceiling.smells.density - run.smells.density;
+  }
+  return gaps;
+}
+
+const pct = (v: number | undefined): string => (v === undefined ? "-" : v.toFixed(1));
+const signed = (v: number | undefined): string =>
+  v === undefined ? "-" : `${v >= 0 ? "+" : ""}${v.toFixed(1)}`;
 
 // --- main --------------------------------------------------------------
 
@@ -243,46 +341,98 @@ if (runs.length === 0) {
 const results: RunResult[] = [];
 for (const runName of runs) {
   process.stdout.write(`\nScoring ${runName}... `);
-  const sandbox = buildSandbox(runName);
+  let sandbox: string;
+  try {
+    sandbox = buildSandbox(runName);
+  } catch {
+    console.log("FAILED to build sandbox");
+    results.push({ runName, precondition: false });
+    continue;
+  }
   try {
     const pre = precheck(sandbox);
     if (!pre.pass) {
       console.log("PRECONDITION FAILED (tests do not pass against correct code)");
+      console.log(pre.output.split("\n").slice(-12).join("\n"));
       results.push({ runName, precondition: false });
       continue;
     }
     const coverage = readCoverage(sandbox);
     const mutation = runMutation(sandbox);
     const numTests = countTests(runName);
+    // Precondition holds => no false positives => precision = 1 by construction.
+    const precision = 1;
+    const recall = mutation ? mutation.mutationScore / 100 : undefined;
+    const f1 = recall === undefined ? undefined : f1Percent(recall, precision);
+    const smellTotal = countSmells(runName);
+    const smells: Smells = { total: smellTotal, density: numTests > 0 ? smellTotal / numTests : 0 };
     console.log("ok");
-    results.push({ runName, precondition: true, numTests, coverage, mutation });
+    results.push({
+      runName,
+      precondition: true,
+      numTests,
+      coverage,
+      mutation,
+      precision: precision * 100,
+      f1,
+      smells,
+    });
   } finally {
     rmSync(sandbox, { recursive: true, force: true });
   }
 }
 
+// Per-metric gap vs the ceiling (paper Eq. 4: ceiling - run).
+const ceiling = results.find((r) => r.runName === CEILING && r.precondition);
+if (ceiling) {
+  for (const r of results) {
+    if (r.runName !== CEILING && r.precondition) r.gaps = computeGaps(ceiling, r);
+  }
+}
+
 writeFileSync(resolve(root, "results.json"), JSON.stringify(results, null, 2));
 
-console.log("\n\n=== CONSOLIDATED ===\n");
-console.log(["Run", "Tests", "Cov.Lines%", "Cov.Branch%", "Mut.Score%", "Killed/Valid"].join("\t"));
+console.log("\n\n=== CONSOLIDATED (paper Table II) ===\n");
+console.log(["Run", "Tests", "Cov.L%", "Cov.B%", "R%", "P%", "F1%", "Smells/test"].join("\t"));
 for (const r of results) {
   if (!r.precondition) {
     console.log(`${r.runName}\t(precondition failed)`);
     continue;
   }
-  const cov = r.coverage;
-  const mut = r.mutation;
-  const valid = mut ? mut.killed + mut.timeout + mut.survived + mut.noCoverage : 0;
   console.log(
     [
       r.runName,
       r.numTests,
-      cov ? cov.lines.toFixed(1) : "-",
-      cov ? cov.branches.toFixed(1) : "-",
-      mut ? mut.mutationScore.toFixed(1) : "-",
-      mut ? `${mut.killed + mut.timeout}/${valid}` : "-",
+      pct(r.coverage?.lines),
+      pct(r.coverage?.branches),
+      pct(r.mutation?.mutationScore),
+      pct(r.precision),
+      pct(r.f1),
+      r.smells ? r.smells.density.toFixed(2) : "-",
     ].join("\t")
   );
 }
+
+if (ceiling) {
+  console.log("\n=== GAP vs ceiling (ceiling - run; paper Eq. 4) ===\n");
+  console.log(["Run", "dCov.L", "dCov.B", "dR", "dF1", "dSmells/test"].join("\t"));
+  for (const r of results) {
+    if (r.runName === CEILING || !r.gaps) continue;
+    const g = r.gaps;
+    console.log(
+      [
+        r.runName,
+        signed(g.coverageLines),
+        signed(g.coverageBranches),
+        signed(g.mutationScore),
+        signed(g.f1),
+        g.smellDensity === undefined ? "-" : signed(g.smellDensity),
+      ].join("\t")
+    );
+  }
+} else {
+  console.log(`\n(no '${CEILING}' run scored - add runs/${CEILING}/tests/ to get gaps)`);
+}
+
 console.log("\nRaw results in results.json");
-console.log("Test smells: run `npm run smells -- runs/<name>/tests/` separately.");
+console.log("Smell detail: run `npm run smells -- runs/<name>/tests/` for per-rule output.");

@@ -15,6 +15,22 @@ When running a model (Claude Code, Copilot, etc.), **point the tool at `bench/`,
 never at the parent folder**, so the model cannot see this `validator` project,
 the prompts, or the scoring criteria.
 
+### Operational isolation
+
+File contents are clean, but a model with shell access can still infer the
+setup from its *environment*. Before running a model, copy the bench to a
+neutral working dir so `pwd`, `ls ..`, and `git log` reveal nothing:
+
+```
+cp -r bench /tmp/work/number-validator      # neutral path, no sibling validator/
+cd /tmp/work/number-validator && rm -rf .git # or re-init with a neutral author
+# point the model here; copy the generated tests back into runs/<name>/tests/
+```
+
+The committed bench history already uses a neutral author (`dev`), but the
+parent path (`.../egs-experimental/...`) and the sibling `validator/` directory
+are only hidden by working from a neutral copy.
+
 ## What is here
 
 - `target/src/` - copy of the code under test, mutated by Stryker. Must be
@@ -25,10 +41,12 @@ the prompts, or the scoring criteria.
 - `runs/` - one subfolder per evaluated suite:
   - `ceiling/` - the quality ceiling (built manually)
   - `<model>-p1/`, `<model>-p2/` - generated suites, copied from the bench
-- `scripts/score.mjs` - scores all suites and consolidates (paper Table II).
-- `scripts/verify-target.mjs` - checks the target is in sync with the bench.
+- `scripts/score.ts` - scores all suites and consolidates (paper Table II).
+- `scripts/verify-target.ts` - checks the target is in sync with the bench.
 - `stryker.conf.template.mjs` - mutation config (copied into each sandbox).
 - `eslint-smells.config.cjs` - test-smell detection rules.
+
+TypeScript scripts run via `tsx` (`npm run score`, `npm run verify-target`).
 
 ## Experimental flow
 
@@ -46,37 +64,42 @@ npm run verify-target
 #    - copy that file into runs/<model>-<condition>/tests/
 #    - clear bench/tests/ before the next run
 
-# 3. Score everything (coverage + mutation + test count)
+# 3. Score everything (full Table II + gaps)
 npm run score
 
-# 4. Test smells per suite (separate; some need manual reading)
+# 4. Optional: per-rule smell output for one suite
 npm run smells -- runs/claude-opus-p1/tests/
 ```
 
-`npm run score` writes `results.json` and prints the consolidated table with
-coverage, mutation score and # tests per run. The `ceiling` row is the ceiling;
-the others are the LLM conditions. The per-metric gap (paper Eq. 4) is
-`ceiling - run`.
+`npm run score` writes `results.json` and prints two tables: the consolidated
+Table II (coverage, mutation score `R`, precision `P`, `F1`, smell density per
+test) for every run, and the per-metric gap vs the `ceiling` run (paper Eq. 4,
+`ceiling - run`). The `ceiling` row is the ceiling; the others are the LLM
+conditions. If no `ceiling` run is scored, the gap table is skipped.
 
 ## Import path in the suites
 
-`score.mjs` builds a sandbox where the target is at `src/` and the suite at
+`score.ts` builds a sandbox where the target is at `src/` and the suite at
 `tests/`. So the suites in `runs/<name>/tests/` must import the target as
 `../src/number-validator` - the same path that works inside `bench/tests/`.
 Confirm this when copying a suite over.
 
 ## Precondition
 
-Every suite must pass against the correct code before being scored. `score.mjs`
-checks this and flags failing suites without giving them a mutation score (a
-suite that fails on correct code would have compromised precision).
+Every suite must pass against the correct code before being scored. `score.ts`
+checks this, prints the failing output, and flags the suite without giving it
+metrics (a suite that fails on correct code would have false positives, i.e.
+precision < 1).
 
-## On precision / recall / F1
+## Metrics: precision, F1, and smell density
 
-The mutation score acts as **recall** (fraction of faults detected).
-**Precision** depends on measuring false positives - tests that fail on correct
-code. Since the precondition requires every suite to pass on correct code, in
-the current design P=1 by construction (no false positives accepted). To measure
-precision non-trivially, introduce a suite of mutants/versions with known faults
-and count how many reported failures correspond to real faults - see the
-methodology discussion.
+- **Recall (R)** = mutation score (fraction of non-equivalent mutants killed).
+- **Precision (P)** = 1 by construction: the precondition rejects any suite with
+  false positives, so every scored suite has P=1. To measure P non-trivially you
+  would seed known faults and count how many reported failures are real.
+- **F1** = `2PR/(P+R)`; with P=1 this reduces to `2R/(1+R)`. Computed and
+  exported automatically.
+- **Smell density** = structural test-smell occurrences per test case, from
+  `eslint-plugin-vitest`. Only **structural** smells are counted (Assertion
+  Roulette, Eager Test, Duplicate, etc.); **semantic** smells (real Mystery
+  Guest, contextual Magic Number) need manual inspection and are out of scope.
