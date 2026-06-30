@@ -33,6 +33,11 @@ impacto na leitura da Tabela II.
 - **Execução:** um teste que falha sobre o código correto é um detector inválido
   e abortaria o baseline do Stryker. Por isso ele é marcado como `skip`
   **apenas** na execução de mutação; cobertura e P usam a suíte completa.
+- **Cobertura com FP:** o Vitest, por padrão, **não emite o relatório de
+  cobertura quando algum teste falha** (`coverage.reportOnFailure = false`). O
+  aparato força `reportOnFailure: true`, então a cobertura é medida sobre a suíte
+  completa mesmo havendo FP — caso contrário uma única falha zeraria a cobertura
+  da execução inteira.
 - **Ação no artigo:** acrescentar 1 frase ao procedimento, explicando que testes
   FP são excluídos só da medição de mutação (para não inflar R espuriamente).
 
@@ -107,6 +112,22 @@ inferior do R da Eq. 2.
 - **Ação no artigo/repo:** adicionar a tabela de constantes com modelo+versão e
   parâmetros de geração de cada execução.
 
+## 8. Alvo e escopo de medição
+
+- **Alvo atual:** o código sob teste é o **`expression-parser`** (um avaliador de
+  expressões no estilo cláusula `WHERE` do SQL), com cinco arquivos em `src/`:
+  `lexer.ts`, `parser.ts`, `evaluator.ts`, `ast.ts` e `token.ts`. Substituiu o
+  `number-validator` para dar mais espaço de discriminação — alvo maior e mais
+  difícil de saturar (no `number-validator`, P, cobertura e smells eram quase
+  constantes entre as suítes; no parser, R, smells e cobertura variam de verdade).
+- **Escopo de cobertura e mutação:** ambas incidem sobre os **3 arquivos de
+  lógica** — `lexer.ts`, `parser.ts`, `evaluator.ts`. `ast.ts` (nós da AST) e
+  `token.ts` (enum + classe `Token`) são estruturais/tipos (análogos ao antigo
+  `interfaces.ts`) e ficam **fora** do escopo de mutação/cobertura.
+- **Ação no artigo:** registrar o `expression-parser` como alvo e declarar que
+  cobertura e escore de mutação incidem sobre os arquivos de lógica
+  (lexer/parser/evaluator).
+
 ---
 
 ### Resumo do que mudou no código
@@ -120,6 +141,17 @@ inferior do R da Eq. 2.
   `score.ts` mede smells em processo (sem subprocesso); `results.json` passa a
   trazer `smells.byType` por execução e `pnpm smells <run>` mostra o
   detalhamento. As dependências do ESLint foram removidas do `package.json`.
+- **Alvo trocado:** `number-validator` → `expression-parser`. Atualizados
+  `bench/src` (5 arquivos), `validator/target/src` (espelho), a lista de
+  `verify-target.ts`, o `mutate` do Stryker (lexer/parser/evaluator) e o
+  `include`/escopo de cobertura do `score.ts`. Removidos os antigos
+  `number-validator.ts`/`interfaces.ts`/`util/` e os smoke tests do alvo.
+- **Cobertura com FP:** `score.ts` passa `coverage.reportOnFailure: true` no
+  sandbox, para que suítes com falsos positivos ainda reportem cobertura.
+- **Robustez do SNUTS:** corrigido `transcriptingTest.js` (assumia corpo em bloco
+  e quebrava em testes com corpo de arrow, `() => expect(...)`); o wrapper isola
+  parse/detector com `try/catch` e o `score.ts` isola a medição de smells, para
+  que uma falha de smell nunca descarte cobertura/mutação da execução.
 - `README.md`, `docs/running-the-experiment.md` e `.pt-br.md`: seções de
   pré-condição e de métricas atualizadas para refletir o acima.
 
@@ -132,4 +164,4 @@ Claude Opus 3.8 em Ultracode com Subagentes
 
 Nvidia Nemotron 3 Nano 30B A3B (free)
 
-Claude Sonnet 4.6 High
+Claude Sonnet 4.6 Medium
