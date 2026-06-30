@@ -151,13 +151,13 @@ Definições das métricas:
   (`1 − taxa de falsos positivos`). Suíte limpa → 100%; suíte com testes que
   falham → <100%.
 - **F1** — `2PR/(P+R)`, agora variando com P e R.
-- **Smells/test** — ocorrências de test smells estruturais por caso de teste.
+- **Smells/test** — ocorrências de test smells por caso de teste, via detectores
+  do SNUTS.js vendorizados (`libs/snuts/`, crédito: Jhonatan Mizu).
 - **Gap** — `ceiling − run`. Um `dR`/`dF1`/`dCov` positivo maior significa que a
   execução está mais abaixo do teto naquela dimensão. Para a densidade de smells,
   um valor negativo significa que a execução tem mais smells do que o teto.
 
-Execute `pnpm smells runs/<nome>/tests/` para um detalhamento de smells por regra
-de uma suíte.
+Execute `pnpm smells <nome>` para um detalhamento de smells por tipo de uma suíte.
 
 ## Passo 4 — Interpretando os resultados
 

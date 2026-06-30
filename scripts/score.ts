@@ -1,6 +1,6 @@
 // Scores each suite in runs/<name>/tests/ against the target: coverage + per-test
-// pass/fail (Vitest), mutation score (Stryker), test smells (ESLint), then the
-// paper's Table II metrics and the per-run gap vs the ceiling.
+// pass/fail (Vitest), mutation score (Stryker), test smells (SNUTS detectors),
+// then the paper's Table II metrics and the per-run gap vs the ceiling.
 //
 // No precondition gate: tests that fail on the correct code count as false
 // positives (lowering P) and are skipped only for the mutation run, so Stryker
@@ -11,20 +11,20 @@ import { resolve, dirname, join, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
+import { detectSmells } from "../libs/snuts/index.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 const runsDir = resolve(root, "runs");
 const targetSrc = resolve(root, "target", "src");
-const smellsConfig = resolve(root, "eslint-smells.config.cjs");
 const resultsDir = resolve(root, "results");
 const resultsFile = resolve(resultsDir, "results.json");
 const CEILING = "ceiling";
 
 const execAsync = promisify(exec);
 
-// Async shell command; never throws (vitest/stryker/eslint exit non-zero in
-// normal cases). Returns ok=false with whatever output was captured.
+// Async shell command; never throws (vitest/stryker exit non-zero in normal
+// cases). Returns ok=false with whatever output was captured.
 async function sh(cmd: string, cwd: string): Promise<{ ok: boolean; stdout: string; stderr: string }> {
     try {
         const { stdout, stderr } = await execAsync(cmd, { cwd, maxBuffer: 64 * 1024 * 1024 });
@@ -68,6 +68,7 @@ interface Mutation {
 interface Smells {
     total: number;
     density: number;
+    byType?: Record<string, number>;
 }
 
 interface Gaps {
@@ -331,23 +332,20 @@ async function runMutation(sandbox: string): Promise<Mutation | null> {
     };
 }
 
-// Structural test-smell count via eslint-plugin-vitest (semantic smells like
-// Mystery Guest are out of scope). Lints the original run folder, not the
-// skip-rewritten sandbox copy.
-async function countSmells(runName: string): Promise<number> {
+// Test-smell count via the vendored SNUTS detector battery (see libs/snuts).
+// Counts smell occurrences over the original run folder, not the skip-rewritten
+// sandbox copy. In-process AST analysis, so no child process is needed.
+function countSmells(runName: string): { total: number; byType: Record<string, number> } {
     const testsDir = join(runsDir, runName, "tests");
-    const r = await sh(
-        `npx --no-install eslint --no-eslintrc -c "${smellsConfig}" --ext .ts --format json "${testsDir}"`,
-        root
-    );
-    const out = r.stdout; // ESLint prints JSON to stdout even when it exits non-zero
-    if (!out) return 0;
-    try {
-        const report = JSON.parse(out) as Array<{ messages?: unknown[] }>;
-        return report.reduce((acc, f) => acc + (f.messages?.length ?? 0), 0);
-    } catch {
-        return 0;
+    const byType: Record<string, number> = {};
+    let total = 0;
+    for (const f of readdirSync(testsDir)) {
+        if (!f.endsWith(".test.ts")) continue;
+        const { total: t, byType: bt } = detectSmells(readFileSync(join(testsDir, f), "utf8"));
+        total += t;
+        for (const [k, v] of Object.entries(bt)) byType[k] = (byType[k] ?? 0) + v;
     }
+    return { total, byType };
 }
 
 // F1 from recall R and precision P (fractions), returned as a percent.
@@ -419,8 +417,12 @@ async function scoreRun(runName: string): Promise<{ result: RunResult; line: str
         const recall = mutation ? mutation.mutationScore / 100 : undefined;
         const f1 =
             precisionFrac !== undefined && recall !== undefined ? f1Percent(recall, precisionFrac) : undefined;
-        const smellTotal = await countSmells(runName);
-        const smells: Smells = { total: smellTotal, density: numTests > 0 ? smellTotal / numTests : 0 };
+        const smell = countSmells(runName);
+        const smells: Smells = {
+            total: smell.total,
+            density: numTests > 0 ? smell.total / numTests : 0,
+            byType: smell.byType,
+        };
         let line = "ok";
         if (falsePositives > 0) {
             const note = skip.unmatched > 0 ? `, ${skip.unmatched} unmatched -> mutation may be blocked` : "";
@@ -634,4 +636,4 @@ if (gapRows.length > 0) {
 }
 
 console.log("\nFull results (consolidated + gaps + raw) in results/results.json");
-console.log("Smell detail: run `pnpm smells runs/<name>/tests/` for per-rule output.");
+console.log("Smell detail: run `pnpm smells <run-name>` for the per-type breakdown.");

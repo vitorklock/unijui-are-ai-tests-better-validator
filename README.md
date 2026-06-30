@@ -44,7 +44,7 @@ are only hidden by working from a neutral copy.
 - `scripts/score.ts` - scores all suites and consolidates (paper Table II).
 - `scripts/verify-target.ts` - checks the target is in sync with the bench.
 - `stryker.conf.template.mjs` - mutation config (copied into each sandbox).
-- `eslint-smells.config.cjs` - test-smell detection rules.
+- `libs/snuts/` - vendored SNUTS.js test-smell detectors (credit: Jhonatan Mizu).
 - `docs/running-the-experiment.md` - full step-by-step procedure
   ([versão em português](docs/running-the-experiment.pt-br.md)).
 
@@ -116,7 +116,9 @@ run; a suite that errors before producing any results is marked "could not run".
   suite with failing tests has P<1.
 - **F1** = `2PR/(P+R)` — now varies with both P and R, computed and exported
   automatically.
-- **Smell density** = structural test-smell occurrences per test case, from
-  `eslint-plugin-vitest`. Only **structural** smells are counted (Assertion
-  Roulette, Eager Test, Duplicate, etc.); **semantic** smells (real Mystery
-  Guest, contextual Magic Number) need manual inspection and are out of scope.
+- **Smell density** = test-smell occurrences per test case, detected by the
+  vendored **SNUTS.js** detectors (`libs/snuts/`, credit: Jhonatan Mizu). Counts
+  occurrences of SNUTS's 15 AST-based smells (Anonymous Test, Sensitive Equality,
+  General Fixture, Conditional Test Logic, Verbose/Eager Test, …). Run
+  `pnpm smells <run-name>` for the per-type breakdown; `results.json` also stores
+  `smells.byType` per run.

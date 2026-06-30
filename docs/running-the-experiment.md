@@ -144,12 +144,13 @@ Metric definitions:
 - **P** — precision: `passing / total` test cases on the correct code
   (`1 − false-positive rate`). Clean suite → 100%; suite with failing tests → <100%.
 - **F1** — `2PR/(P+R)`, now varying with both P and R.
-- **Smells/test** — structural test-smell occurrences per test case.
+- **Smells/test** — test-smell occurrences per test case, via the vendored
+  SNUTS.js detectors (`libs/snuts/`, credit: Jhonatan Mizu).
 - **Gap** — `ceiling − run`. A larger positive `dR`/`dF1`/`dCov` means the run
   is further below the ceiling on that dimension. For smell density, a negative
   value means the run has more smells than the ceiling.
 
-Run `pnpm smells runs/<name>/tests/` for a per-rule smell breakdown of one suite.
+Run `pnpm smells <name>` for a per-type smell breakdown of one suite.
 
 ## Step 4 — Interpreting the results
 

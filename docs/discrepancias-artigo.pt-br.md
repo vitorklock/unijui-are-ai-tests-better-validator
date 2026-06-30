@@ -86,20 +86,29 @@ comparação de gaps.
   a razão de não ser 100% (remetendo ao registro acima). Não reportar 100% no
   teto e 95,6% nas LLMs — misturaria duas definições de R.
 
-## 5. Test smells: regras de prateleira, não "personalizadas"; 2 dos 5 não medidos
+## 5. Test smells: detectados pelo SNUTS.js (não por regras ESLint personalizadas)
 
 - **Artigo (Seção III.E / II.C):** "ESLint estendido com **regras
   personalizadas**"; smells de interesse: Assertion Roulette, Duplicate Assert,
   Eager Test, **Magic Number Test**, **Mystery Guest**.
-- **Execução:** usa regras de prateleira do `eslint-plugin-vitest`
-  (`max-expects`, `no-identical-title`, `no-standalone-expect`,
-  `no-conditional-expect`, `valid-expect`, `no-disabled-tests`, `expect-expect`)
-  como **proxies estruturais**. **Magic Number Test** e **Mystery Guest** (smells
-  semânticos) **não são detectados** automaticamente.
-- **Ação no artigo:** (a) trocar "regras personalizadas" por "regras do
-  `eslint-plugin-vitest` selecionadas como proxies estruturais"; (b) listar
-  apenas os smells efetivamente aferidos e declarar Magic Number/Mystery Guest
-  como inspeção manual ou fora de escopo.
+- **Execução (agora):** os smells são detectados pelo **SNUTS.js** (Jhonatan
+  Mizu; https://github.com/Jhonatanmizu/SNUTS.js), cujos detectores foram
+  vendorizados em `validator/libs/snuts/` e rodam sobre a AST (Babel) de cada
+  suíte. São 15 detectores: Anonymous Test, Sensitive Equality, Comments Only
+  Test, General Fixture, Test Without Description, Transcripting Test,
+  Overcommented Test, Identical Test Description, Complex Snapshot, Conditional
+  Test Logic, Non-Functional Statement, Only Test, Sub-Optimal Assert,
+  Verbose/Eager Test e Verify In Setup. A densidade segue sendo ocorrências por
+  caso de teste.
+- **Cobertura do catálogo do artigo:** Eager Test ≈ *Verbose Statement*; Mystery
+  Guest ≈ *General Fixture*. Assertion Roulette, Duplicate Assert e Magic Number
+  Test **não têm detector direto** no SNUTS (ficam fora de escopo ou para
+  inspeção manual).
+- **Ação no artigo:** (a) trocar "ESLint com regras personalizadas" por "detecção
+  de test smells com o **SNUTS.js** (Mizu), reutilizando seus detectores"; (b)
+  substituir a lista de smells de interesse pela lista efetivamente medida pelo
+  SNUTS (acima) — já acordado que podemos alterar os smells citados no artigo;
+  (c) citar o SNUTS (repositório e artigo SBES) na subseção de Ferramentas.
 
 ## 6. Cobertura: "condições" não é medida separadamente
 
@@ -127,6 +136,11 @@ comparação de gaps.
   pontuada. Nova coluna **FP** (falsos positivos), **P = aprovados/total**, F1
   variável, **dP** na tabela de gaps, testes FP marcados como `skip` só para a
   mutação. Suíte que nem roda → "could not run".
+- **Smells:** substituído o `eslint-plugin-vitest` pelos detectores do
+  **SNUTS.js**, vendorizados em `validator/libs/snuts/` (15 detectores AST). O
+  `score.ts` mede smells em processo (sem subprocesso); `results.json` passa a
+  trazer `smells.byType` por execução e `pnpm smells <run>` mostra o
+  detalhamento. As dependências do ESLint foram removidas do `package.json`.
 - `README.md`, `docs/running-the-experiment.md` e `.pt-br.md`: seções de
   pré-condição e de métricas atualizadas para refletir o acima.
 
