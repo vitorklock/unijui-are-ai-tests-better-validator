@@ -1,0 +1,25 @@
+{
+  "name": "validator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Evaluation harness: coverage, mutation, test smells, P/R/F1.",
+  "type": "module",
+  "scripts": {
+    "verify-target": "tsx scripts/verify-target.ts",
+    "score": "tsx scripts/score.ts",
+    "smells": "eslint --no-eslintrc -c eslint-smells.config.cjs --ext .ts"
+  },
+  "devDependencies": {
+    "@stryker-mutator/core": "^8.2.6",
+    "@stryker-mutator/vitest-runner": "^8.2.6",
+    "@types/json-schema": "^7.0.11",
+    "@types/node": "^20.12.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vitest": "^0.4.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

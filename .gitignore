@@ -1,0 +1,7 @@
+node_modules/
+.stryker-tmp/
+reports/
+coverage/
+stryker-report.json
+results.json
+.DS_Store
