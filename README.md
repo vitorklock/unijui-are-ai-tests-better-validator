@@ -45,10 +45,15 @@ are only hidden by working from a neutral copy.
 - `scripts/verify-target.ts` - checks the target is in sync with the bench.
 - `stryker.conf.template.mjs` - mutation config (copied into each sandbox).
 - `eslint-smells.config.cjs` - test-smell detection rules.
+- `docs/running-the-experiment.md` - full step-by-step procedure.
 
 TypeScript scripts run via `tsx` (`pnpm score`, `pnpm verify-target`).
 
 ## Experimental flow
+
+For the full step-by-step procedure (building the ceiling, generating a suite
+per model/condition, scoring, and interpreting the gaps), see
+[docs/running-the-experiment.md](docs/running-the-experiment.md). In short:
 
 ```
 # 0. Install (once)
