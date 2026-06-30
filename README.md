@@ -46,16 +46,16 @@ are only hidden by working from a neutral copy.
 - `stryker.conf.template.mjs` - mutation config (copied into each sandbox).
 - `eslint-smells.config.cjs` - test-smell detection rules.
 
-TypeScript scripts run via `tsx` (`npm run score`, `npm run verify-target`).
+TypeScript scripts run via `tsx` (`pnpm score`, `pnpm verify-target`).
 
 ## Experimental flow
 
 ```
 # 0. Install (once)
-npm install
+pnpm install
 
 # 1. Make sure the target here is identical to the bench's
-npm run verify-target
+pnpm verify-target
 
 # 2. Run a model against the bench (NOT this folder):
 #    - clear bench/tests/ (must be empty before each run)
@@ -65,13 +65,13 @@ npm run verify-target
 #    - clear bench/tests/ before the next run
 
 # 3. Score everything (full Table II + gaps)
-npm run score
+pnpm score
 
 # 4. Optional: per-rule smell output for one suite
-npm run smells -- runs/claude-opus-p1/tests/
+pnpm smells runs/claude-opus-p1/tests/
 ```
 
-`npm run score` writes `results.json` and prints two tables: the consolidated
+`pnpm score` writes `results.json` and prints two tables: the consolidated
 Table II (coverage, mutation score `R`, precision `P`, `F1`, smell density per
 test) for every run, and the per-metric gap vs the `ceiling` run (paper Eq. 4,
 `ceiling - run`). The `ceiling` row is the ceiling; the others are the LLM

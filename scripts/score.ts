@@ -151,7 +151,7 @@ export default defineConfig({
 function precheck(sandbox: string): { pass: boolean; output: string } {
   // Does the suite pass against the correct code?
   try {
-    execSync("npx vitest run --coverage", { cwd: sandbox, stdio: "pipe" });
+    execSync("npx --no-install vitest run --coverage", { cwd: sandbox, stdio: "pipe" });
     return { pass: true, output: "" };
   } catch (e) {
     const err = e as { stdout?: Buffer; stderr?: Buffer };
@@ -210,7 +210,7 @@ function findMutationReport(sandbox: string): string | null {
 
 function runMutation(sandbox: string): Mutation | null {
   try {
-    execSync("npx stryker run stryker.conf.mjs", { cwd: sandbox, stdio: "pipe" });
+    execSync("npx --no-install stryker run stryker.conf.mjs", { cwd: sandbox, stdio: "pipe" });
   } catch {
     // Stryker may exit non-zero when below the score threshold; the report is
     // still written, so we keep going.
@@ -256,7 +256,7 @@ function countSmells(runName: string): number {
   let out = "";
   try {
     out = execSync(
-      `npx eslint --no-eslintrc -c "${smellsConfig}" --ext .ts --format json "${testsDir}"`,
+      `npx --no-install eslint --no-eslintrc -c "${smellsConfig}" --ext .ts --format json "${testsDir}"`,
       { cwd: root, stdio: "pipe" }
     ).toString();
   } catch (e) {
@@ -435,4 +435,4 @@ if (ceiling) {
 }
 
 console.log("\nRaw results in results.json");
-console.log("Smell detail: run `npm run smells -- runs/<name>/tests/` for per-rule output.");
+console.log("Smell detail: run `pnpm smells runs/<name>/tests/` for per-rule output.");
