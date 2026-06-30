@@ -90,3 +90,13 @@ impacto na leitura da Tabela II.
   mutação. Suíte que nem roda → "could not run".
 - `README.md`, `docs/running-the-experiment.md` e `.pt-br.md`: seções de
   pré-condição e de métricas atualizadas para refletir o acima.
+
+
+---
+
+Modelos utilizados
+
+Claude Opus 3.8 em Ultracode com Subagentes
+
+Nvidia Nemotron 3 Nano 30B A3B (free)
+
