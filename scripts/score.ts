@@ -399,11 +399,22 @@ function renderTable(headers: string[], rows: string[][], rightAlign: boolean[])
 
 // --- main --------------------------------------------------------------
 
-const runs = listRuns().filter(hasTests);
-if (runs.length === 0) {
+// Optional positional arg: score only this run, e.g. `pnpm score ceiling`.
+const onlyRun = process.argv[2];
+
+const allRuns = listRuns().filter(hasTests);
+if (allRuns.length === 0) {
   console.log("No runs with tests found in runs/. Add suites to runs/<name>/tests/.");
   process.exit(0);
 }
+
+if (onlyRun && !allRuns.includes(onlyRun)) {
+  console.error(`Run "${onlyRun}" has no tests at runs/${onlyRun}/tests/*.test.ts.`);
+  console.error(`Available runs: ${allRuns.join(", ")}`);
+  process.exit(1);
+}
+
+const runs = onlyRun ? [onlyRun] : allRuns;
 
 const results: RunResult[] = [];
 for (const runName of runs) {
@@ -461,19 +472,42 @@ for (const runName of runs) {
   }
 }
 
-// Per-metric gap vs the ceiling (paper Eq. 4: ceiling - run).
-const ceiling = results.find((r) => r.runName === CEILING && r.scored);
-if (ceiling) {
-  for (const r of results) {
-    if (r.runName !== CEILING && r.scored) r.gaps = computeGaps(ceiling, r);
+// In single-run mode, merge the freshly scored run into the previous
+// results.json so the table and gaps stay complete (other rows come from the
+// last run; the ceiling is reused for the gap).
+function loadPreviousRuns(): RunResult[] {
+  const p = resolve(root, "results.json");
+  if (!existsSync(p)) return [];
+  try {
+    const data = JSON.parse(readFileSync(p, "utf8")) as { runs?: RunResult[] };
+    return Array.isArray(data.runs) ? data.runs : [];
+  } catch {
+    return [];
   }
+}
+
+const scoredNames = new Set(results.map((r) => r.runName));
+const final: RunResult[] = onlyRun
+  ? [...loadPreviousRuns().filter((r) => !scoredNames.has(r.runName)), ...results]
+  : results;
+
+// Stable order: ceiling first, then alphabetical.
+final.sort((a, b) =>
+  a.runName === CEILING ? -1 : b.runName === CEILING ? 1 : a.runName.localeCompare(b.runName)
+);
+
+// Per-metric gap vs the ceiling (paper Eq. 4: ceiling - run).
+const ceiling = final.find((r) => r.runName === CEILING && r.scored);
+for (const r of final) {
+  if (r.runName !== CEILING && r.scored && ceiling) r.gaps = computeGaps(ceiling, r);
+  else delete r.gaps;
 }
 
 // --- structured JSON output --------------------------------------------
 // Flat, table-shaped views (mirroring the printed tables) plus the raw detail.
 // Numbers stay numeric; missing values are null.
 
-const consolidated = results.map((r) =>
+const consolidated = final.map((r) =>
   r.scored
     ? {
         run: r.runName,
@@ -493,7 +527,7 @@ const consolidated = results.map((r) =>
     : { run: r.runName, scored: false }
 );
 
-const gapsOut = results
+const gapsOut = final
   .filter((r) => r.runName !== CEILING && r.gaps)
   .map((r) => ({
     run: r.runName,
@@ -507,18 +541,22 @@ const gapsOut = results
 
 writeFileSync(
   resolve(root, "results.json"),
-  JSON.stringify({ ceiling: ceiling?.runName ?? null, consolidated, gaps: gapsOut, runs: results }, null, 2)
+  JSON.stringify({ ceiling: ceiling?.runName ?? null, consolidated, gaps: gapsOut, runs: final }, null, 2)
 );
 
 // --- aligned terminal tables -------------------------------------------
 
 const NA = "-";
 
-console.log("\n\n=== CONSOLIDATED (paper Table II) ===\n");
+if (onlyRun) {
+  console.log(`\n(scored only "${onlyRun}"; other rows loaded from previous results.json)`);
+}
+
+console.log("\n=== CONSOLIDATED (paper Table II) ===\n");
 console.log(
   renderTable(
     ["Run", "Tests", "FP", "Cov.L%", "Cov.B%", "R%", "P%", "F1%", "Smells/test"],
-    results.map((r) =>
+    final.map((r) =>
       r.scored
         ? [
             r.runName,
@@ -542,7 +580,7 @@ if (ceiling) {
   console.log(
     renderTable(
       ["Run", "dCov.L", "dCov.B", "dR", "dP", "dF1", "dSmells/test"],
-      results
+      final
         .filter((r) => r.runName !== CEILING && r.gaps)
         .map((r) => {
           const g = r.gaps as Gaps;
