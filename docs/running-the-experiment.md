@@ -113,11 +113,11 @@ pnpm score <run-name>   # only that run (e.g. `pnpm score ceiling`)
 
 Passing a run name scores just that one suite — handy while iterating on the
 ceiling or a single condition. It merges the result into the previous
-`results.json` (the other rows are kept and the `ceiling` row is reused to
+`results/results.json` (the other rows are kept and the `ceiling` row is reused to
 recompute the gap), so you still get the full table without re-running Stryker
 on every suite.
 
-Two tables are printed and written to `results.json`:
+Two tables are printed and written to `results/results.json`:
 
 ```
 === CONSOLIDATED (paper Table II) ===

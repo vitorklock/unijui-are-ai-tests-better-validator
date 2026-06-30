@@ -7,7 +7,9 @@
   "scripts": {
     "verify-target": "tsx scripts/verify-target.ts",
     "score": "tsx scripts/score.ts",
-    "smells": "eslint --no-eslintrc -c eslint-smells.config.cjs --ext .ts"
+    "smells": "eslint --no-eslintrc -c eslint-smells.config.cjs --ext .ts",
+    "analyze": "python3 scripts/analysis/analyze.py",
+    "analyze:install": "python3 -m pip install -r scripts/analysis/requirements.txt"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^8.2.6",

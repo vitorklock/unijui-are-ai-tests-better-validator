@@ -12,7 +12,7 @@
 // total tests). Those failing tests are invalid detectors, so they are skipped
 // ONLY for the mutation run (otherwise Stryker aborts on a red baseline and a
 // mutant would be "killed" for a spurious reason, inflating recall).
-import { mkdtempSync, cpSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync, symlinkSync } from "node:fs";
+import { mkdtempSync, mkdirSync, cpSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync, symlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve, dirname, join, basename } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,6 +23,8 @@ const root = resolve(here, "..");
 const runsDir = resolve(root, "runs");
 const targetSrc = resolve(root, "target", "src");
 const smellsConfig = resolve(root, "eslint-smells.config.cjs");
+const resultsDir = resolve(root, "results");
+const resultsFile = resolve(resultsDir, "results.json");
 const CEILING = "ceiling";
 
 interface Coverage {
@@ -495,10 +497,9 @@ for (const runName of runs) {
 // results.json so the table and gaps stay complete (other rows come from the
 // last run; the ceiling is reused for the gap).
 function loadPreviousRuns(): RunResult[] {
-  const p = resolve(root, "results.json");
-  if (!existsSync(p)) return [];
+  if (!existsSync(resultsFile)) return [];
   try {
-    const data = JSON.parse(readFileSync(p, "utf8")) as { runs?: RunResult[] };
+    const data = JSON.parse(readFileSync(resultsFile, "utf8")) as { runs?: RunResult[] };
     return Array.isArray(data.runs) ? data.runs : [];
   } catch {
     return [];
@@ -558,8 +559,9 @@ const gapsOut = final
     dSmellDensity: r.gaps?.smellDensity ?? null,
   }));
 
+mkdirSync(resultsDir, { recursive: true });
 writeFileSync(
-  resolve(root, "results.json"),
+  resultsFile,
   JSON.stringify({ ceiling: ceiling?.runName ?? null, consolidated, gaps: gapsOut, runs: final }, null, 2)
 );
 
@@ -624,5 +626,5 @@ if (gapRows.length > 0) {
   console.log(`\n(no '${CEILING}' run scored - add runs/${CEILING}/tests/ to get gaps)`);
 }
 
-console.log("\nFull results (consolidated + gaps + raw) in results.json");
+console.log("\nFull results (consolidated + gaps + raw) in results/results.json");
 console.log("Smell detail: run `pnpm smells runs/<name>/tests/` for per-rule output.");

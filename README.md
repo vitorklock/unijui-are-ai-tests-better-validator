@@ -75,14 +75,14 @@ pnpm verify-target
 pnpm score
 
 #    ...or score a single run for fast iteration. It merges into the previous
-#    results.json (other rows kept, ceiling reused for the gap):
+#    results/results.json (other rows kept, ceiling reused for the gap):
 # pnpm score claude-opus-p1
 
 # 4. Optional: per-rule smell output for one suite
 pnpm smells runs/claude-opus-p1/tests/
 ```
 
-`pnpm score` writes `results.json` and prints two tables: the consolidated
+`pnpm score` writes `results/results.json` and prints two tables: the consolidated
 Table II (coverage, mutation score `R`, precision `P`, `F1`, smell density per
 test) for every run, and the per-metric gap vs the `ceiling` run (paper Eq. 4,
 `ceiling - run`). The `ceiling` row is the ceiling; the others are the LLM
