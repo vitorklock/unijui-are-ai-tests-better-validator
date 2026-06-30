@@ -381,6 +381,22 @@ const pct = (v: number | undefined): string => (v === undefined ? "-" : v.toFixe
 const signed = (v: number | undefined): string =>
   v === undefined ? "-" : `${v >= 0 ? "+" : ""}${v.toFixed(1)}`;
 
+// Renders a fixed-width table: columns padded to their widest cell, a dashed
+// rule under the header, two-space gutters. `rightAlign[i]` right-justifies
+// numeric columns; the rest are left-justified.
+function renderTable(headers: string[], rows: string[][], rightAlign: boolean[]): string {
+  const widths = headers.map((h, i) =>
+    Math.max(h.length, ...rows.map((r) => (r[i] ?? "").length))
+  );
+  const line = (cells: string[]): string =>
+    cells
+      .map((c, i) => (rightAlign[i] ? (c ?? "").padStart(widths[i]) : (c ?? "").padEnd(widths[i])))
+      .join("  ")
+      .replace(/\s+$/, "");
+  const rule = widths.map((w) => "-".repeat(w)).join("  ");
+  return [line(headers), rule, ...rows.map(line)].join("\n");
+}
+
 // --- main --------------------------------------------------------------
 
 const runs = listRuns().filter(hasTests);
@@ -453,51 +469,99 @@ if (ceiling) {
   }
 }
 
-writeFileSync(resolve(root, "results.json"), JSON.stringify(results, null, 2));
+// --- structured JSON output --------------------------------------------
+// Flat, table-shaped views (mirroring the printed tables) plus the raw detail.
+// Numbers stay numeric; missing values are null.
+
+const consolidated = results.map((r) =>
+  r.scored
+    ? {
+        run: r.runName,
+        scored: true,
+        tests: r.numTests ?? null,
+        falsePositives: r.falsePositives ?? null,
+        coverageLines: r.coverage?.lines ?? null,
+        coverageBranches: r.coverage?.branches ?? null,
+        coverageStatements: r.coverage?.statements ?? null,
+        coverageFunctions: r.coverage?.functions ?? null,
+        mutationScore: r.mutation?.mutationScore ?? null,
+        precision: r.precision ?? null,
+        f1: r.f1 ?? null,
+        smellDensity: r.smells?.density ?? null,
+        smellTotal: r.smells?.total ?? null,
+      }
+    : { run: r.runName, scored: false }
+);
+
+const gapsOut = results
+  .filter((r) => r.runName !== CEILING && r.gaps)
+  .map((r) => ({
+    run: r.runName,
+    dCoverageLines: r.gaps?.coverageLines ?? null,
+    dCoverageBranches: r.gaps?.coverageBranches ?? null,
+    dMutationScore: r.gaps?.mutationScore ?? null,
+    dPrecision: r.gaps?.precision ?? null,
+    dF1: r.gaps?.f1 ?? null,
+    dSmellDensity: r.gaps?.smellDensity ?? null,
+  }));
+
+writeFileSync(
+  resolve(root, "results.json"),
+  JSON.stringify({ ceiling: ceiling?.runName ?? null, consolidated, gaps: gapsOut, runs: results }, null, 2)
+);
+
+// --- aligned terminal tables -------------------------------------------
+
+const NA = "-";
 
 console.log("\n\n=== CONSOLIDATED (paper Table II) ===\n");
-console.log(["Run", "Tests", "FP", "Cov.L%", "Cov.B%", "R%", "P%", "F1%", "Smells/test"].join("\t"));
-for (const r of results) {
-  if (!r.scored) {
-    console.log(`${r.runName}\t(could not run)`);
-    continue;
-  }
-  console.log(
-    [
-      r.runName,
-      r.numTests,
-      r.falsePositives,
-      pct(r.coverage?.lines),
-      pct(r.coverage?.branches),
-      pct(r.mutation?.mutationScore),
-      pct(r.precision),
-      pct(r.f1),
-      r.smells ? r.smells.density.toFixed(2) : "-",
-    ].join("\t")
-  );
-}
+console.log(
+  renderTable(
+    ["Run", "Tests", "FP", "Cov.L%", "Cov.B%", "R%", "P%", "F1%", "Smells/test"],
+    results.map((r) =>
+      r.scored
+        ? [
+            r.runName,
+            String(r.numTests ?? NA),
+            String(r.falsePositives ?? NA),
+            pct(r.coverage?.lines),
+            pct(r.coverage?.branches),
+            pct(r.mutation?.mutationScore),
+            pct(r.precision),
+            pct(r.f1),
+            r.smells ? r.smells.density.toFixed(2) : NA,
+          ]
+        : [r.runName, NA, NA, NA, NA, NA, NA, NA, NA]
+    ),
+    [false, true, true, true, true, true, true, true, true]
+  )
+);
 
 if (ceiling) {
   console.log("\n=== GAP vs ceiling (ceiling - run; paper Eq. 4) ===\n");
-  console.log(["Run", "dCov.L", "dCov.B", "dR", "dP", "dF1", "dSmells/test"].join("\t"));
-  for (const r of results) {
-    if (r.runName === CEILING || !r.gaps) continue;
-    const g = r.gaps;
-    console.log(
-      [
-        r.runName,
-        signed(g.coverageLines),
-        signed(g.coverageBranches),
-        signed(g.mutationScore),
-        signed(g.precision),
-        signed(g.f1),
-        g.smellDensity === undefined ? "-" : signed(g.smellDensity),
-      ].join("\t")
-    );
-  }
+  console.log(
+    renderTable(
+      ["Run", "dCov.L", "dCov.B", "dR", "dP", "dF1", "dSmells/test"],
+      results
+        .filter((r) => r.runName !== CEILING && r.gaps)
+        .map((r) => {
+          const g = r.gaps as Gaps;
+          return [
+            r.runName,
+            signed(g.coverageLines),
+            signed(g.coverageBranches),
+            signed(g.mutationScore),
+            signed(g.precision),
+            signed(g.f1),
+            g.smellDensity === undefined ? NA : signed(g.smellDensity),
+          ];
+        }),
+      [false, true, true, true, true, true, true]
+    )
+  );
 } else {
   console.log(`\n(no '${CEILING}' run scored - add runs/${CEILING}/tests/ to get gaps)`);
 }
 
-console.log("\nRaw results in results.json");
+console.log("\nFull results (consolidated + gaps + raw) in results.json");
 console.log("Smell detail: run `pnpm smells runs/<name>/tests/` for per-rule output.");
