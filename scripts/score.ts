@@ -138,7 +138,7 @@ export default defineConfig({
     environment: "node",
     coverage: {
       provider: "v8",
-      include: ["src/number-validator.ts"],
+      include: ["src/lexer.ts", "src/parser.ts", "src/evaluator.ts"],
       reporter: ["json-summary", "text"],
       reportsDirectory: "coverage",
     },
@@ -251,8 +251,9 @@ function readCoverage(sandbox: string): Coverage | null {
     if (!existsSync(p)) return null;
     try {
         const data = JSON.parse(readFileSync(p, "utf8")) as Record<string, any>;
-        const fileKey = Object.keys(data).find((k) => k.includes("number-validator.ts"));
-        const entry = fileKey ? data[fileKey] : data.total;
+        // Aggregate over whatever the sandbox coverage.include covers (the target
+        // logic files), so this isn't tied to a single target filename.
+        const entry = data.total;
         if (!entry) return null;
         return {
             lines: entry.lines.pct,

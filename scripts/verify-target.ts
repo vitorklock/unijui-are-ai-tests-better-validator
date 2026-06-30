@@ -15,9 +15,11 @@ const targetSrc = resolve(root, "target", "src");
 
 // Files that must be identical between bench and validator.
 const files = [
-    "number-validator.ts",
-    "interfaces.ts",
-    "util/remove-undefined-properties.ts",
+    "ast.ts",
+    "evaluator.ts",
+    "lexer.ts",
+    "parser.ts",
+    "token.ts",
 ];
 
 const hash = (path: string): string =>

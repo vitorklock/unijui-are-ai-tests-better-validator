@@ -7,7 +7,7 @@ export default {
   testRunner: "vitest",
   plugins: ["@stryker-mutator/vitest-runner"],
   coverageAnalysis: "perTest",
-  mutate: ["src/number-validator.ts"],
+  mutate: ["src/lexer.ts", "src/parser.ts", "src/evaluator.ts"],
   tsconfigFile: "tsconfig.json",
   vitest: {
     configFile: "vitest.config.ts",
