@@ -119,7 +119,7 @@ export default defineConfig({
         compilerOptions: {
           target: "ES2020",
           module: "ESNext",
-          moduleResolution: "node",
+          moduleResolution: "bundler",
           strict: true,
           esModuleInterop: true,
           skipLibCheck: true,
