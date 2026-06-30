@@ -91,21 +91,25 @@ conditions. If no `ceiling` run is scored, the gap table is skipped.
 `../src/number-validator` - the same path that works inside `bench/tests/`.
 Confirm this when copying a suite over.
 
-## Precondition
+## No precondition gate
 
-Every suite must pass against the correct code before being scored. `score.ts`
-checks this, prints the failing output, and flags the suite without giving it
-metrics (a suite that fails on correct code would have false positives, i.e.
-precision < 1).
+Suites are scored exactly as generated — there is **no** pass-100% gate, and
+failing suites are neither corrected nor discarded. Tests that fail against the
+correct code are counted as **false positives** and lower precision. For the
+mutation run only, those failing tests are skipped (a test that fails on correct
+code is an invalid detector and would otherwise abort Stryker's green baseline
+and spuriously inflate recall). `score.ts` reports the false-positive count per
+run; a suite that errors before producing any results is marked "could not run".
 
 ## Metrics: precision, F1, and smell density
 
 - **Recall (R)** = mutation score (fraction of non-equivalent mutants killed).
-- **Precision (P)** = 1 by construction: the precondition rejects any suite with
-  false positives, so every scored suite has P=1. To measure P non-trivially you
-  would seed known faults and count how many reported failures are real.
-- **F1** = `2PR/(P+R)`; with P=1 this reduces to `2R/(1+R)`. Computed and
-  exported automatically.
+- **Precision (P)** = `passing / total` test cases on the correct code, i.e.
+  `1 − false-positive rate`. A "positive" is a test case (a behavioral claim); a
+  false positive is a test that fails on correct code. A clean suite has P=1; a
+  suite with failing tests has P<1.
+- **F1** = `2PR/(P+R)` — now varies with both P and R, computed and exported
+  automatically.
 - **Smell density** = structural test-smell occurrences per test case, from
   `eslint-plugin-vitest`. Only **structural** smells are counted (Assertion
   Roulette, Eager Test, Duplicate, etc.); **semantic** smells (real Mystery

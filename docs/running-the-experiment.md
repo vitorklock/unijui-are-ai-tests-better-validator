@@ -94,13 +94,13 @@ becomes a new row with no configuration change.
 Remove the temporary workspace (`rm -rf /tmp/work/number-validator`) and repeat
 for the next cell.
 
-Two checks when copying a suite over:
+One check when copying a suite over: the import path is `../src/number-validator`
+(the same path that resolves in both the bench and the scoring sandbox).
 
-- The import path is `../src/number-validator` (the same path that resolves in
-  both the bench and the scoring sandbox).
-- The suite passes against the correct code — the **precondition**. `score.ts`
-  flags and skips any suite that fails it (a suite failing on correct code would
-  have false positives, i.e. precision < 1).
+Do **not** fix or trim the generated suite. It is scored exactly as produced —
+there is no pass-100% gate. Tests that fail against the correct code are counted
+as **false positives** and lower precision (P); they are skipped only for the
+mutation run so Stryker keeps a green baseline.
 
 ## Step 3 — Score all suites
 
@@ -114,22 +114,23 @@ Two tables are printed and written to `results.json`:
 
 ```
 === CONSOLIDATED (paper Table II) ===
-Run              Tests  Cov.L%  Cov.B%  R%    P%     F1%   Smells/test
-ceiling          7      77.8    92.8    35.2  100.0  52.0  0.00
-claude-opus-p1   1      57.4    28.6     2.2  100.0   4.3  0.00
+Run              Tests  FP  Cov.L%  Cov.B%  R%    P%     F1%   Smells/test
+ceiling          7      0   77.8    92.8    35.2  100.0  52.0  0.00
+claude-opus-p1   5      1   57.4    28.6     2.2   80.0   4.3  0.00
 ...
 
 === GAP vs ceiling (ceiling - run) ===
-Run              dCov.L  dCov.B  dR     dF1    dSmells/test
-claude-opus-p1   +20.4   +64.3   +33.0  +47.7  +0.0
+Run              dCov.L  dCov.B  dR     dP     dF1    dSmells/test
+claude-opus-p1   +20.4   +64.3   +33.0  +20.0  +47.7  +0.0
 ```
 
 Metric definitions:
 
+- **FP** — false positives: tests that fail on the correct code.
 - **R** — mutation score (recall): non-equivalent mutants killed.
-- **P** — precision: `1` by construction (the precondition rejects false
-  positives).
-- **F1** — `2PR/(P+R)`, which reduces to `2R/(1+R)`.
+- **P** — precision: `passing / total` test cases on the correct code
+  (`1 − false-positive rate`). Clean suite → 100%; suite with failing tests → <100%.
+- **F1** — `2PR/(P+R)`, now varying with both P and R.
 - **Smells/test** — structural test-smell occurrences per test case.
 - **Gap** — `ceiling − run`. A larger positive `dR`/`dF1`/`dCov` means the run
   is further below the ceiling on that dimension. For smell density, a negative
