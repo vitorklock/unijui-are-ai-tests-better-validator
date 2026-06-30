@@ -107,9 +107,15 @@ mutation run so Stryker keeps a green baseline.
 ```
 cd validator
 pnpm verify-target
-pnpm score              # all runs
+pnpm score              # all runs (scored in parallel)
 pnpm score <run-name>   # only that run (e.g. `pnpm score ceiling`)
+pnpm score --jobs 4     # cap how many runs are scored at once (default ~ cores-1)
 ```
+
+Runs are scored concurrently — each in its own isolated sandbox — so wall-clock
+time is roughly that of the slowest single suite rather than the sum. Stryker
+also parallelizes internally, so `--jobs` is capped by default to avoid
+oversubscribing the CPU; lower it if the machine gets thrashed.
 
 Passing a run name scores just that one suite — handy while iterating on the
 ceiling or a single condition. It merges the result into the previous

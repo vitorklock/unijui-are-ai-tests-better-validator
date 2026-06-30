@@ -113,9 +113,15 @@ verde.
 ```
 cd validator
 pnpm verify-target
-pnpm score              # todas as execuções
+pnpm score              # todas as execuções (pontuadas em paralelo)
 pnpm score <nome>       # apenas aquela execução (ex.: `pnpm score ceiling`)
+pnpm score --jobs 4     # limita quantas execuções em paralelo (padrão ~ núcleos-1)
 ```
+
+As execuções são pontuadas concorrentemente — cada uma em seu próprio sandbox
+isolado — então o tempo total é próximo ao da suíte mais lenta, e não da soma.
+O Stryker também paraleliza internamente, então `--jobs` é limitado por padrão
+para não sobrecarregar a CPU; reduza-o se a máquina ficar saturada.
 
 Passar um nome de execução pontua só aquela suíte — útil ao iterar no teto ou
 em uma única condição. O resultado é mesclado ao `results/results.json` anterior (as

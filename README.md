@@ -71,8 +71,10 @@ pnpm verify-target
 #    - copy that file into runs/<model>-<condition>/tests/
 #    - clear bench/tests/ before the next run
 
-# 3. Score everything (full Table II + gaps)
+# 3. Score everything (full Table II + gaps). Runs are scored in parallel
+#    (each in an isolated sandbox); cap it with --jobs N (default ~ cores-1).
 pnpm score
+# pnpm score --jobs 4
 
 #    ...or score a single run for fast iteration. It merges into the previous
 #    results/results.json (other rows kept, ceiling reused for the gap):
