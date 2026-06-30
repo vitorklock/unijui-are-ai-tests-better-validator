@@ -47,44 +47,23 @@ impacto na leitura da Tabela II.
   Métricas dizendo que a ferramenta não subtrai `M_equiv`, então R reportado ≤ R
   teórico.
 
-### 4.1. Limite teórico medido para o alvo atual (teto: R = 95,6%, não 100%)
+### 4.1. Limite teórico medido para o alvo (pendente: alvo trocado)
 
-O teto foi construído e seu limite **provado**. Para o `number-validator.ts`, o
-StrykerJS gera **91 mutantes**; a suíte de referência mata **87** e atinge:
+> ⚠️ **Desatualizado.** O teto provado anteriormente (R = 95,6%; 4 mutantes
+> equivalentes nas guardas `typeof` do `number-validator.ts`) era específico
+> daquele alvo. **O alvo foi trocado para o `expression-parser`** (lexer +
+> parser + evaluator), então aquele teto e o registro
+> `runs/ceiling/EQUIVALENT_MUTANTS.md` **não valem mais**.
 
-| Métrica | Teto |
-| --- | --- |
-| Cobertura (linhas / ramos) | 100% / 100% |
-| Escore de mutação (R) | **95,6%** (87/91) |
-| Falsos positivos (FP) | 0 |
-| Precisão (P) / F1 | 100% / 97,8% |
-| Densidade de smells | 0,00 |
+Esta subseção será reescrita quando o novo teto for construído para o
+`expression-parser` e seu limite medido (escore de mutação máximo, mutantes
+equivalentes encontrados, prova de equivalência). Até lá vale apenas o ponto
+geral da §4: a ferramenta não subtrai `M_equiv`, logo o R reportado é um limite
+inferior do R da Eq. 2.
 
-O R **não chega a 100%** porque exatamente **4 mutantes são equivalentes** — não
-podem ser mortos por nenhum teste. Os 4 estão nas guardas `typeof min/max !==
-"undefined"` (linhas 71 e 79): a guarda é **redundante** com a comparação
-seguinte, pois quando `min`/`max` é `undefined` o termo `value < undefined`
-(resp. `value > undefined`) é sempre `false` (comparação relacional com `NaN`).
-Enfraquecer a guarda, portanto, não altera o comportamento observável.
-
-- **Prova:** analítica (semântica IEEE-754 / ECMAScript) **e** empírica — um
-  painel adversarial de 12 agentes (cada um dos 4 sobreviventes atacado por 3
-  ângulos independentes) retornou **0 mortes em 12 veredictos**. Todas as
-  *outras* mutações nas linhas 71/79 são mortas, então a suíte é máxima ali.
-- **Registro completo:** `validator/runs/ceiling/EQUIVALENT_MUTANTS.md`.
-
-**Consequência para a Tabela II.** A linha "Teto" terá **R = 95,6%**, e não
-100% — o que *confirma* a afirmação do artigo de que o teto é o "máximo empírico
-efetivamente alcançável, e não necessariamente um ideal teórico de 100%". Pela
-Eq. 2 literal (subtraindo `M_equiv = 4`), o R do teto seria `87/(91−4) = 100%`;
-como a ferramenta não subtrai equivalentes (ver §4), o aparato reporta **95,6%**
-para o teto **e** para as condições da LLM, mantendo a mesma base de R na
-comparação de gaps.
-
-- **Ação no artigo:** ao preencher a Tabela II, reportar R do teto = 95,6% (base
-  Stryker) e acrescentar nota de rodapé citando os 4 mutantes equivalentes como
-  a razão de não ser 100% (remetendo ao registro acima). Não reportar 100% no
-  teto e 95,6% nas LLMs — misturaria duas definições de R.
+- **Ação no artigo:** preencher a Tabela II somente após medir o novo teto;
+  reportar o R do teto na base Stryker e documentar os mutantes equivalentes do
+  novo alvo (mesma lógica de antes, números novos).
 
 ## 5. Test smells: detectados pelo SNUTS.js (não por regras ESLint personalizadas)
 
@@ -153,3 +132,4 @@ Claude Opus 3.8 em Ultracode com Subagentes
 
 Nvidia Nemotron 3 Nano 30B A3B (free)
 
+Claude Sonnet 4.6 High

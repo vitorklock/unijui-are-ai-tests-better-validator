@@ -14,7 +14,8 @@ const detectTranscriptingTest = (ast) => {
       if (
         astService.isTestCase(path.node) &&
         args.length >= 2 &&
-        t.isFunction(args[1])
+        t.isFunction(args[1]) &&
+        t.isBlockStatement(args[1].body)
       ) {
         const body = args[1].body.body;
         for (const statement of body) {

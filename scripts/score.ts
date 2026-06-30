@@ -141,6 +141,7 @@ export default defineConfig({
       include: ["src/lexer.ts", "src/parser.ts", "src/evaluator.ts"],
       reporter: ["json-summary", "text"],
       reportsDirectory: "coverage",
+      reportOnFailure: true,
     },
   },
 });
@@ -418,12 +419,15 @@ async function scoreRun(runName: string): Promise<{ result: RunResult; line: str
         const recall = mutation ? mutation.mutationScore / 100 : undefined;
         const f1 =
             precisionFrac !== undefined && recall !== undefined ? f1Percent(recall, precisionFrac) : undefined;
-        const smell = countSmells(runName);
-        const smells: Smells = {
-            total: smell.total,
-            density: numTests > 0 ? smell.total / numTests : 0,
-            byType: smell.byType,
-        };
+        // Smells are best-effort: a failure here must not discard the coverage,
+        // mutation, and precision we already computed for this run.
+        let smells: Smells | undefined;
+        try {
+            const smell = countSmells(runName);
+            smells = { total: smell.total, density: numTests > 0 ? smell.total / numTests : 0, byType: smell.byType };
+        } catch {
+            smells = undefined;
+        }
         let line = "ok";
         if (falsePositives > 0) {
             const note = skip.unmatched > 0 ? `, ${skip.unmatched} unmatched -> mutation may be blocked` : "";

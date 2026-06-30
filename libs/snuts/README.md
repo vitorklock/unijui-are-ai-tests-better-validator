@@ -11,11 +11,16 @@ CSV export, or repo-cloning.
 
 ## Contents
 
-- `src/common/detectors/` — SNUTS's detector files, vendored verbatim. Each file
-  is one smell detector (`detectAnonymousTest`, `detectSensitiveEquality`, …),
-  listed in `index.js` as the `detectors` array. (SNUTS's `singlePassRunner.js`,
-  a one-pass re-implementation of the same detectors, is not included — we run
-  the named detectors directly.)
+- `src/common/detectors/` — SNUTS's detector files, vendored verbatim except one
+  bug fix. Each file is one smell detector (`detectAnonymousTest`,
+  `detectSensitiveEquality`, …), listed in `index.js` as the `detectors` array.
+  (SNUTS's `singlePassRunner.js`, a one-pass re-implementation of the same
+  detectors, is not included — we run the named detectors directly.)
+  - **Patch:** `transcriptingTest.js` did `args[1].body.body` unconditionally,
+    which throws ("body is not iterable") on a concise arrow-body test such as
+    `it("x", () => expect(...))`. Added a `t.isBlockStatement(args[1].body)`
+    guard — the same check `generalFixture.js` and `commentsOnlyTest.js` already
+    use.
 - `src/services/ast.service.js` — SNUTS's AST helpers/predicates used by the
   detectors. Vendored verbatim.
 - `index.js` / `index.d.ts` — thin wrapper (ours): parses a TypeScript suite with

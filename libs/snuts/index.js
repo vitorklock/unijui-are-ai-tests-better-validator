@@ -15,12 +15,24 @@ function parseToAst(code) {
 // (the detector's name minus the "detect" prefix). total is the sum across all
 // detectors (one "occurrence" per detection).
 export function detectSmells(code) {
-  const ast = parseToAst(code);
+  let ast;
+  try {
+    ast = parseToAst(code);
+  } catch {
+    return { total: 0, byType: {} };
+  }
   const byType = {};
   let total = 0;
   for (const detector of detectors) {
-    const found = detector(ast) || [];
-    const count = Array.isArray(found) ? found.length : 0;
+    let count = 0;
+    try {
+      const found = detector(ast) || [];
+      count = Array.isArray(found) ? found.length : 0;
+    } catch {
+      // A detector that chokes on this AST contributes nothing rather than
+      // taking down the whole suite's smell measurement.
+      count = 0;
+    }
     byType[detector.name.replace(/^detect/, "")] = count;
     total += count;
   }
