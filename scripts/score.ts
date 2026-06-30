@@ -399,8 +399,27 @@ function renderTable(headers: string[], rows: string[][], rightAlign: boolean[])
 
 // --- main --------------------------------------------------------------
 
-// Optional positional arg: score only this run, e.g. `pnpm score ceiling`.
-const onlyRun = process.argv[2];
+// Optional arg: score only one run. Accepts a positional name, `--only <name>`,
+// or `--only=<name>` (e.g. `pnpm score ceiling`, `pnpm score --only ceiling`).
+let onlyRun: string | undefined;
+let badUsage = false;
+const cliArgs = process.argv.slice(2);
+for (let i = 0; i < cliArgs.length; i++) {
+  const a = cliArgs[i];
+  if (a === "--only" || a === "-o") {
+    onlyRun = cliArgs[++i];
+    if (!onlyRun) badUsage = true;
+  } else if (a.startsWith("--only=")) {
+    onlyRun = a.slice("--only=".length);
+    if (!onlyRun) badUsage = true;
+  } else if (!a.startsWith("-")) {
+    onlyRun = a;
+  }
+}
+if (badUsage) {
+  console.error("Usage: score [<run-name>]   (or: score --only <run-name>)");
+  process.exit(1);
+}
 
 const allRuns = listRuns().filter(hasTests);
 if (allRuns.length === 0) {
@@ -548,15 +567,18 @@ writeFileSync(
 
 const NA = "-";
 
+// Only the scored run(s) are shown when --only is used; results.json keeps all.
+const displayed = onlyRun ? final.filter((r) => r.runName === onlyRun) : final;
+
 if (onlyRun) {
-  console.log(`\n(scored only "${onlyRun}"; other rows loaded from previous results.json)`);
+  console.log(`\n(showing only "${onlyRun}")`);
 }
 
 console.log("\n=== CONSOLIDATED (paper Table II) ===\n");
 console.log(
   renderTable(
     ["Run", "Tests", "FP", "Cov.L%", "Cov.B%", "R%", "P%", "F1%", "Smells/test"],
-    final.map((r) =>
+    displayed.map((r) =>
       r.scored
         ? [
             r.runName,
@@ -575,29 +597,30 @@ console.log(
   )
 );
 
-if (ceiling) {
+const gapRows = displayed.filter((r) => r.runName !== CEILING && r.gaps);
+if (gapRows.length > 0) {
   console.log("\n=== GAP vs ceiling (ceiling - run; paper Eq. 4) ===\n");
   console.log(
     renderTable(
       ["Run", "dCov.L", "dCov.B", "dR", "dP", "dF1", "dSmells/test"],
-      final
-        .filter((r) => r.runName !== CEILING && r.gaps)
-        .map((r) => {
-          const g = r.gaps as Gaps;
-          return [
-            r.runName,
-            signed(g.coverageLines),
-            signed(g.coverageBranches),
-            signed(g.mutationScore),
-            signed(g.precision),
-            signed(g.f1),
-            g.smellDensity === undefined ? NA : signed(g.smellDensity),
-          ];
-        }),
+      gapRows.map((r) => {
+        const g = r.gaps as Gaps;
+        return [
+          r.runName,
+          signed(g.coverageLines),
+          signed(g.coverageBranches),
+          signed(g.mutationScore),
+          signed(g.precision),
+          signed(g.f1),
+          g.smellDensity === undefined ? NA : signed(g.smellDensity),
+        ];
+      }),
       [false, true, true, true, true, true, true]
     )
   );
-} else {
+} else if (onlyRun === CEILING) {
+  console.log("\n(scored the ceiling: it is the gap reference, so it has no gap row)");
+} else if (!ceiling) {
   console.log(`\n(no '${CEILING}' run scored - add runs/${CEILING}/tests/ to get gaps)`);
 }
 

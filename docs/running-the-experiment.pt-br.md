@@ -113,8 +113,15 @@ verde.
 ```
 cd validator
 pnpm verify-target
-pnpm score
+pnpm score              # todas as execuções
+pnpm score <nome>       # apenas aquela execução (ex.: `pnpm score ceiling`)
 ```
+
+Passar um nome de execução pontua só aquela suíte — útil ao iterar no teto ou
+em uma única condição. O resultado é mesclado ao `results.json` anterior (as
+demais linhas são mantidas e a linha `ceiling` é reutilizada para recalcular o
+gap), então você ainda obtém a tabela completa sem reexecutar o Stryker em
+todas as suítes.
 
 Duas tabelas são impressas e gravadas em `results.json`:
 

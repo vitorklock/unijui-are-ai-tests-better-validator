@@ -74,6 +74,10 @@ pnpm verify-target
 # 3. Score everything (full Table II + gaps)
 pnpm score
 
+#    ...or score a single run for fast iteration. It merges into the previous
+#    results.json (other rows kept, ceiling reused for the gap):
+# pnpm score claude-opus-p1
+
 # 4. Optional: per-rule smell output for one suite
 pnpm smells runs/claude-opus-p1/tests/
 ```
