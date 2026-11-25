@@ -13,13 +13,16 @@ if [ -z "$bench" ]; then
   done
 fi
 if [ -z "$bench" ] || [ ! -d "$bench/src" ]; then
-  echo "Bench não encontrado. Passe o caminho como 2º argumento ou defina BENCH=." >&2; exit 1
+  srcdir="$here/target/src"; skel="$here/bench-skeleton"
+else
+  srcdir="$bench/src"; skel="$bench"
 fi
 cat "$here/prompts/PROMPT_${cond}.md"
 printf '\n\n## Files\n'
 for f in package.json vitest.config.ts src/token.ts src/ast.ts src/lexer.ts src/parser.ts src/evaluator.ts; do
   case "$f" in *.json) lang=json ;; *) lang=ts ;; esac
+  case "$f" in src/*) path="$srcdir/${f#src/}" ;; *) path="$skel/$f" ;; esac
   printf '\n### %s\n\n```%s\n' "$f" "$lang"
-  cat "$bench/$f"
+  cat "$path"
   printf '\n```\n'
 done
