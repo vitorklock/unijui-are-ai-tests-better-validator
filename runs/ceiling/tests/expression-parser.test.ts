@@ -516,3 +516,59 @@ describe('parse() — invalid input', () => {
     expect(() => parse('1 + @')).toThrow(/Invalid input/);
   });
 });
+
+describe('lexer — character-class boundaries', () => {
+  it('treats the digit 9 (upper bound of the numeric range) as a number', () => {
+    expect(evaluate('9')).toBe(9);
+  });
+
+  it('keeps reading a multi-digit number through a trailing 9', () => {
+    expect(evaluate('19')).toBe(19);
+  });
+
+  it('reads a decimal whose integer part has more than one digit as a single number', () => {
+    expect(evaluate('12.5')).toBe(12.5);
+  });
+
+  it('accepts an identifier starting with "A" (lower bound of the uppercase range)', () => {
+    expect(evaluateObject('Age > 18', { Age: 21 })).toBe(true);
+  });
+
+  it('accepts an identifier starting with "Z" (upper bound of the uppercase range)', () => {
+    expect(evaluateObject('Zone = 1', { Zone: 1 })).toBe(true);
+  });
+
+  it('accepts an identifier starting with "z" (upper bound of the lowercase range)', () => {
+    expect(evaluateObject('zip = 1', { zip: 1 })).toBe(true);
+  });
+
+  it('rejects "[" (the character right after "Z") as an illegal character', () => {
+    expect(() => parse('1 + [')).toThrow(/Invalid input/);
+  });
+
+  it('rejects "{" (the character right after "z") as an illegal character', () => {
+    expect(() => parse('1 + {')).toThrow(/Invalid input/);
+  });
+});
+
+describe('error messages — token literal and position', () => {
+  it('reports the end-of-input token with its NUL literal and position', () => {
+    expect(() => parse('(1')).toThrow('Expected ) but got { type: EOF, literal: \0 } as position: 2.');
+  });
+
+  it('reports the position of an illegal character', () => {
+    expect(() => parse('1 + @')).toThrow('Invalid input: { type: ILLEGAL, literal: @ } as position: 4.');
+  });
+
+  it('reports the position of a string token (the quote is not counted)', () => {
+    expect(() => parse("length('a' 'b')")).toThrow(
+      'Expected , or ) got { type: STR, literal: b } as position: 12.',
+    );
+  });
+});
+
+describe('parse() — case expression guards', () => {
+  it('throws when "case" is not followed by "when" even if the expression is otherwise well formed', () => {
+    expect(() => parse('case end')).toThrow(/Expected when/);
+  });
+});
