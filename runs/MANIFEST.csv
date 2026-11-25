@@ -1,2 +1,6 @@
 run,model_requested,model_resolved,interface,prompt,rep,timestamp,seconds,output_tokens,notes
 fable-5-1-p1-r1,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,1,2026-11-25T17:14:20-03:00,244,,
+fable-5-1-p1-r2,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,2,2026-11-25T17:18:41-03:00,261,,
+fable-5-1-p1-r3,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,3,2026-11-25T17:22:48-03:00,247,,
+fable-5-1-p1-r4,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,4,2026-11-25T17:28:15-03:00,327,,
+fable-5-1-p1-r5,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,5,2026-11-25T17:34:21-03:00,366,,
