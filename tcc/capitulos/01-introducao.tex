@@ -1,0 +1,26 @@
+% ==============================================================================
+% 1. INTRODUÇÃO
+% ==============================================================================
+\chapter{Introdução}
+\label{cap:introducao}
+
+Testar software custa caro e, ainda assim, costuma ser a parte do trabalho que fica para depois. O relatório clássico do NIST estimou em dezenas de bilhões de dólares por ano o prejuízo causado por infraestrutura inadequada de testes nos Estados Unidos \cite{tassey2002}, e a dificuldade de escrever bons testes continua sendo uma das razões pelas quais muitos projetos simplesmente não os têm \cite{siddiq2024}. Nesse cenário, assistentes de programação baseados em modelos de linguagem de grande porte (LLMs) entraram rápido no dia a dia dos desenvolvedores \cite{liang2024}, e gerar testes de unidade é uma das tarefas que mais se delega a eles: basta apontar o modelo para o código e pedir ``escreva os testes''.
+
+A pergunta que interessa é o que se recebe de volta. A literatura sobre geração de testes com LLMs cresceu depressa, mas a forma de medir a qualidade do que é gerado ainda é frágil em dois pontos. O primeiro é a métrica: boa parte dos estudos reporta cobertura de código, que é fácil de medir mas é um indicador fraco da capacidade de detectar defeitos \cite{inozemtseva2014}; uma suíte pode executar todas as linhas e não falhar quando a lógica muda, porque suas asserções são frouxas. O segundo é a linha de base: quando há comparação, ela é feita contra testes escritos por humanos cuja qualidade raramente é conhecida. \citeonline{walczak2025}, por exemplo, usam como referência a suíte de um praticante que atinge 98\% de cobertura de ramos e apenas 44\% de escore de mutação, e concluem que várias configurações de LLM a superam. Superar uma suíte mediana diz pouco sobre o quanto falta para uma suíte boa.
+
+Há ainda um terceiro problema, mais silencioso. LLMs são não determinísticos: o mesmo prompt produz saídas diferentes a cada chamada, e \citeonline{ouyang2025} mostram que, em geração de código, a fração de tarefas em que nenhuma das respostas repetidas produz a mesma saída chega a três quartos. Mesmo assim, a prática comum em avaliações de geração de testes é medir uma única geração por condição e tratar o número obtido como ``o'' resultado daquele modelo. Não se sabe quanto desse número é propriedade do modelo e quanto é sorte de amostragem.
+
+Este trabalho propõe medir a qualidade dos testes gerados por LLMs de outro jeito: pela \textbf{distância até um teto de qualidade demonstrado}. O teto é a melhor suíte de testes que se consegue construir para o código-alvo usando todos os recursos disponíveis (um desenvolvedor experiente, a melhor LLM que tínhamos, e ferramentas de análise de mutação e de \textit{smells}) iterando até que o escore de mutação sature e cada mutante sobrevivente tenha uma prova de que é equivalente ou inalcançável. Contra esse teto, medimos suítes geradas de forma autônoma por três LLMs atuais, em duas condições de prompt, com cinco gerações independentes por condição. A qualidade é medida em três dimensões: cobertura (linhas e ramos), poder de detecção de defeitos (escore de mutação, lido como \textit{recall}, e precisão, lida a partir dos testes que falham sobre o código correto) e manutenibilidade (densidade de \textit{test smells}).
+
+As questões de pesquisa são:
+
+\begin{description}
+    \item[QP1.] Dado um teto de qualidade demonstrado para o código-alvo, a que distância dele ficam as suítes geradas autonomamente por LLMs, em cada dimensão?
+    \item[QP2.] Um prompt que informa à LLM os critérios pelos quais os testes serão avaliados reduz essa distância?
+    \item[QP3.] Em qual dimensão a distância é maior?
+    \item[QP4.] Quão estável é a distância entre gerações repetidas da mesma condição? Uma única geração basta para caracterizá-la?
+\end{description}
+
+As contribuições são: (i) um método de avaliação baseado em teto demonstrado, com aparato de replicação público; (ii) um teto construído e revisado para um avaliador de expressões em TypeScript com 369 mutantes, no qual os oito mutantes que restam vivos têm prova de equivalência ou de inalcançabilidade; (iii) medições de distância, com repetição, para três modelos atuais e dois prompts; (iv) evidência sobre quanto uma avaliação de geração única pode ser confiada; e (v) um achado metodológico sobre a pontuação de mutação executada em paralelo, que inflou o escore do próprio teto em 2,4 pontos percentuais por meio de \textit{timeouts} espúrios.
+
+O restante do texto está organizado assim: o \autoref{cap:metodologia} descreve o desenho do estudo, as variáveis, os procedimentos e a análise; o \autoref{cap:referencial} situa cobertura, teste de mutação, \textit{test smells}, geração de testes com LLMs e não determinismo; o \autoref{cap:desenvolvimento} apresenta o código-alvo, o aparato, a construção do teto, as condições experimentais, os resultados, a discussão e as ameaças à validade; e o \autoref{cap:consideracoes} fecha com as respostas às questões e os próximos passos.
