@@ -29,6 +29,7 @@ for i in $(seq 1 "$k"); do
   mkdir -p "$dir/tests" "$dir/src"
   cp "$srcdir"/*.ts "$dir/src/"
   cp "$skel"/package.json "$skel"/vitest.config.ts "$skel"/tsconfig.json "$dir/"
+  echo "[$run] gerando em $dir (sem saída até terminar; ~1-5 min)..."
   start=$(date +%s)
   ( cd "$dir" && claude -p "$(cat "$here/prompts/PROMPT_${cond}.md")" \
       ${model:+--model "$model"} \
@@ -46,5 +47,7 @@ for i in $(seq 1 "$k"); do
   fi
   printf '%s,claude-fable-5-1,%s,claude-code-headless-sem-bash,%s,%s,%s,%s,,%s\n' \
     "$run" "${model:-default}" "$cond" "$i" "$(date -Iseconds)" "$secs" "$note" >> "$manifest"
-  echo "[$run] ${secs}s"
+  ntests=$(grep -cE '^\s*(it|test)\(' "$here/runs/$run/tests/"*.test.ts 2>/dev/null | awk -F: '{s+=$NF} END {print s+0}')
+  echo "[$run] concluída em ${secs}s, ~${ntests} testes ${note:+($note)}"
 done
+echo "Pronto: $(ls -d "$here"/runs/$slug-$lc-r* 2>/dev/null | wc -l) suítes em runs/$slug-$lc-r*/"
