@@ -14,7 +14,9 @@ const k = Number(kArg ?? 5);
 const slug = slugArg ?? model.split("/").pop().replace(/[^a-z0-9]+/gi, "-").toLowerCase();
 const key = process.env.OPENROUTER_API_KEY;
 if (!key) { console.error("Defina OPENROUTER_API_KEY"); process.exit(1); }
-const bench = process.env.BENCH ?? resolve(here, "..", "bench");
+const candidates = [process.env.BENCH, resolve(here, "..", "bench"), resolve(here, "..", "unijui-are-ai-tests-better-bench")].filter(Boolean);
+const bench = candidates.find((c) => existsSync(resolve(c, "src")));
+if (!bench) { console.error("Bench não encontrado. Defina BENCH=/caminho/do/bench."); process.exit(1); }
 const message = execSync(`bash "${resolve(here, "scripts/bundle-prompt.sh")}" ${cond} "${bench}"`, { encoding: "utf8" });
 const manifest = resolve(here, "runs", "MANIFEST.csv");
 

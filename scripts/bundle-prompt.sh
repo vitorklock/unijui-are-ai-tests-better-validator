@@ -6,7 +6,15 @@
 set -euo pipefail
 cond="${1:?informe P1 ou P2}"
 here="$(cd "$(dirname "$0")/.." && pwd)"
-bench="${2:-$here/../bench}"
+bench="${2:-${BENCH:-}}"
+if [ -z "$bench" ]; then
+  for cand in "$here/../bench" "$here/../unijui-are-ai-tests-better-bench"; do
+    if [ -d "$cand/src" ]; then bench="$cand"; break; fi
+  done
+fi
+if [ -z "$bench" ] || [ ! -d "$bench/src" ]; then
+  echo "Bench não encontrado. Passe o caminho como 2º argumento ou defina BENCH=." >&2; exit 1
+fi
 cat "$here/prompts/PROMPT_${cond}.md"
 printf '\n\n## Files\n'
 for f in package.json vitest.config.ts src/token.ts src/ast.ts src/lexer.ts src/parser.ts src/evaluator.ts; do

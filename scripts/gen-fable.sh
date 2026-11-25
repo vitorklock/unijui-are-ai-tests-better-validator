@@ -7,7 +7,15 @@
 set -euo pipefail
 cond="${1:?informe P1 ou P2}"; k="${2:-5}"; model="${3:-}"
 here="$(cd "$(dirname "$0")/.." && pwd)"
-bench="${BENCH:-$here/../bench}"
+bench="${BENCH:-}"
+if [ -z "$bench" ]; then
+  for cand in "$here/../bench" "$here/../unijui-are-ai-tests-better-bench"; do
+    if [ -d "$cand/src" ]; then bench="$cand"; break; fi
+  done
+fi
+if [ -z "$bench" ] || [ ! -d "$bench/src" ]; then
+  echo "Bench não encontrado. Defina BENCH=/caminho/do/bench (pasta com src/, package.json, vitest.config.ts)." >&2; exit 1
+fi
 work="${WORK:-/tmp/work}"
 slug="fable-5-1"; lc="$(printf '%s' "$cond" | tr '[:upper:]' '[:lower:]')"
 manifest="$here/runs/MANIFEST.csv"
