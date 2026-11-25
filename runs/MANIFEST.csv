@@ -1,1 +1,2 @@
 run,model_requested,model_resolved,interface,prompt,rep,timestamp,seconds,output_tokens,notes
+fable-5-1-p1-r1,claude-fable-5-1,claude-fable-5-1,claude-code-headless-sem-bash,P1,1,2026-11-25T17:14:20-03:00,244,,
