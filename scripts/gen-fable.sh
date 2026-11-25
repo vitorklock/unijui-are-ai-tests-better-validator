@@ -13,8 +13,11 @@ if [ -z "$bench" ]; then
     if [ -d "$cand/src" ]; then bench="$cand"; break; fi
   done
 fi
+# Sem bench clonado: usa target/src (idêntico ao bench, verificado por verify-target) + bench-skeleton/
 if [ -z "$bench" ] || [ ! -d "$bench/src" ]; then
-  echo "Bench não encontrado. Defina BENCH=/caminho/do/bench (pasta com src/, package.json, vitest.config.ts)." >&2; exit 1
+  srcdir="$here/target/src"; skel="$here/bench-skeleton"
+else
+  srcdir="$bench/src"; skel="$bench"
 fi
 work="${WORK:-/tmp/work}"
 slug="fable-5-1"; lc="$(printf '%s' "$cond" | tr '[:upper:]' '[:lower:]')"
@@ -24,8 +27,8 @@ for i in $(seq 1 "$k"); do
   if [ -s "$here/runs/$run/tests/expression-parser.test.ts" ]; then echo "[$run] já existe, pulando"; continue; fi
   dir="$work/expression-parser-$(date +%s)-$RANDOM"      # caminho neutro, novo a cada execução
   mkdir -p "$dir/tests" "$dir/src"
-  cp "$bench"/src/*.ts "$dir/src/"
-  cp "$bench"/package.json "$bench"/vitest.config.ts "$bench"/tsconfig.json "$dir/"
+  cp "$srcdir"/*.ts "$dir/src/"
+  cp "$skel"/package.json "$skel"/vitest.config.ts "$skel"/tsconfig.json "$dir/"
   start=$(date +%s)
   ( cd "$dir" && claude -p "$(cat "$here/prompts/PROMPT_${cond}.md")" \
       ${model:+--model "$model"} \
