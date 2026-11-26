@@ -1,15 +1,23 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 
 import { evaluate, evaluateObject } from '../src/evaluator';
-import { parse } from '../src/parser';
+import { parse, Parser } from '../src/parser';
 import {
   BinaryExpression,
   CaseExpression,
   FunctionCallExpression,
   IdentifierExpression,
+  UnaryExpression,
   ValueExpression,
 } from '../src/ast';
 import { TokenType } from '../src/token';
+
+// `parse` is wrapped (not replaced): one describe block below feeds the evaluator
+// AST nodes the real parser never produces. Every other test uses the real parser.
+vi.mock('../src/parser', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../src/parser')>();
+  return { ...actual, parse: vi.fn(actual.parse) };
+});
 
 /**
  * Tests for the SQL-like expression parser/evaluator.
@@ -570,5 +578,28 @@ describe('error messages — token literal and position', () => {
 describe('parse() — case expression guards', () => {
   it('throws when "case" is not followed by "when" even if the expression is otherwise well formed', () => {
     expect(() => parse('case end')).toThrow(/Expected when/);
+  });
+});
+
+describe('defensive branches reachable only with injected nodes', () => {
+  it('rejects a binary operator the evaluator does not implement', () => {
+    vi.mocked(parse).mockReturnValueOnce(
+      new BinaryExpression(TokenType.Not, new ValueExpression(1), new ValueExpression(2)),
+    );
+    expect(() => evaluate('ignored')).toThrow('Operator not not implemented');
+  });
+
+  it('rejects an AST node type the evaluator does not know', () => {
+    vi.mocked(parse).mockReturnValueOnce(new UnaryExpression(TokenType.Minus, new ValueExpression(1)));
+    expect(() => evaluate('ignored')).toThrow('Invalid AST node');
+  });
+
+  it('throws from the grouped-expression guard when the peek check reports no token', () => {
+    const spy = vi.spyOn(Parser.prototype as any, 'expectPeekToken').mockReturnValueOnce(undefined);
+    try {
+      expect(() => parse('(1)')).toThrow(/^Expected \) but got /);
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
