@@ -169,22 +169,16 @@
 
 % --- Resumo e Abstract ---
 \resumoemportugues{%
-   O resumo deve ser um texto conciso, até 250 palavras, que apresente os 
-   pontos mais importantes do artigo: os objetivos, a metodologia utilizada, 
-   os resultados obtidos e as conclusões. Deve ser redigido em um único parágrafo, 
-   sem recuo e sem citações.
+   Modelos de linguagem de grande porte (LLMs) são usados rotineiramente para gerar testes de unidade, mas a qualidade do que geram costuma ser medida por cobertura, um indicador fraco de detecção de defeitos, ou comparada a testes humanos de qualidade desconhecida, e quase sempre a partir de uma única geração. Este trabalho propõe medir a distância até um teto de qualidade demonstrado: a melhor suíte que se consegue construir para o código-alvo com um desenvolvedor, uma LLM e ferramentas de mutação e de \textit{test smells}, iterando até que todo mutante sobrevivente tenha prova de equivalência. Para um avaliador de expressões em TypeScript com 369 mutantes, o teto ficou em 99,5\% de escore de mutação. Contra ele, medimos suítes geradas autonomamente por três LLMs (Claude Fable 5.1, Gemini 4 Neon e DeepSeek V4.1 Flash), com um prompt básico e um prompt ciente das métricas, em cinco gerações por condição, em cobertura, poder de detecção e densidade de \textit{smells}. Com o prompt básico, as suítes ficam a 3 pontos percentuais ou menos do teto em cobertura de linhas, mas a 8,4, 8,7 e 17,9 pontos em escore de mutação: executam quase tudo e verificam bem menos do que executam. O prompt ciente das métricas reduziu essa distância em 57\%, 75\% e 73\%, em todas as gerações, e colocou o modelo de baixo custo à frente dos modelos de fronteira sem orientação. A dispersão entre gerações variou de 0,4 a 2,5 pontos conforme o modelo, o bastante para inverter a ordem entre condições vizinhas em até 36\% das amostras de geração única.
 }
 % Instrução: Use letras minúsculas para as palavras-chave, separe-as com ponto e vírgula (;) e encerre a última com um ponto (.)
-\palavraschaveemportugues{palavra-chave-1; palavra-chave-2; palavra-chave-3.}
+\palavraschaveemportugues{geração de testes; modelos de linguagem; teste de mutação; qualidade de testes; test smells.}
 
 \resumoemingles{
-   The abstract must be a concise text, up to 250 words, that presents the 
-   most important points of the article: the objectives, the methodology used, 
-   the results obtained and the conclusions. It must be written in a single 
-   paragraph, without indentation and without citations.    
+   Large language models (LLMs) are routinely used to generate unit tests, yet the quality of what they produce is usually measured by coverage, a weak indicator of fault detection, or compared against human-written tests of unknown quality, and almost always from a single generation. This work proposes measuring the distance to a demonstrated quality ceiling: the best test suite that can be built for the target with a developer, an LLM and mutation and test-smell tools, iterating until every surviving mutant has a proof of equivalence. For a TypeScript expression evaluator with 369 mutants, the ceiling reached a 99.5\% mutation score. Against it, we measured suites generated autonomously by three LLMs (Claude Fable 5.1, Gemini 4 Neon and DeepSeek V4.1 Flash), with a basic prompt and a metrics-aware prompt, in five generations per condition, on coverage, fault-detection power and smell density. With the basic prompt, suites fall within 3 percentage points of the ceiling in line coverage but 8.4, 8.7 and 17.9 points below it in mutation score: they execute almost everything and verify far less than they execute. The metrics-aware prompt reduced that distance by 57\%, 75\% and 73\%, in every generation, and placed the low-cost model ahead of the frontier models without guidance. Dispersion across generations ranged from 0.4 to 2.5 points depending on the model, enough to invert the order of neighbouring conditions in up to 36\% of single-generation samples.
 }
 % Instruction: Use lowercase letters for keywords, separate them with semicolons (;) and end the last one with a period (.).
-\palavraschaveemingles{keyword-1; keyword-2; keyword-3.}
+\palavraschaveemingles{test generation; large language models; mutation testing; test quality; test smells.}
 
 
 
@@ -198,7 +192,7 @@
     pdfauthor={\@author},
     pdfsubject={\imprimirpreambulo},
     pdfcreator={LaTeX com abnTeX2},
-    pdfkeywords={abnt}{latex}{abntex}{abntex2}{artigo}{tcc},
+    pdfkeywords={geração de testes}{LLM}{teste de mutação}{qualidade de testes}{test smells},
     colorlinks=true,        % false: links em caixas; true: links coloridos
     linkcolor=black,        % cor dos links internos
     citecolor=black,        % cor dos links para bibliografias

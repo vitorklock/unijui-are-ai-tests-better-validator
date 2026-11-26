@@ -452,6 +452,81 @@
       "smellTotal": 2
     },
     {
+      "run": "gemini-pro-p2-r1",
+      "scored": true,
+      "tests": 117,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 97.5609756097561,
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smellDensity": 0.008547008547008548,
+      "smellTotal": 1
+    },
+    {
+      "run": "gemini-pro-p2-r2",
+      "scored": true,
+      "tests": 129,
+      "falsePositives": 1,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 97.289972899729,
+      "precision": 99.2248062015504,
+      "f1": 98.24786461841077,
+      "smellDensity": 0.007751937984496124,
+      "smellTotal": 1
+    },
+    {
+      "run": "gemini-pro-p2-r3",
+      "scored": true,
+      "tests": 106,
+      "falsePositives": 1,
+      "coverageLines": 98.83,
+      "coverageBranches": 96.66,
+      "coverageStatements": 98.83,
+      "coverageFunctions": 100,
+      "mutationScore": 96.4769647696477,
+      "precision": 99.05660377358491,
+      "f1": 97.74976791621448,
+      "smellDensity": 0.009433962264150943,
+      "smellTotal": 1
+    },
+    {
+      "run": "gemini-pro-p2-r4",
+      "scored": true,
+      "tests": 176,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 97.5609756097561,
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smellDensity": 0.005681818181818182,
+      "smellTotal": 1
+    },
+    {
+      "run": "gemini-pro-p2-r5",
+      "scored": true,
+      "tests": 178,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 97.5609756097561,
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smellDensity": 0.0056179775280898875,
+      "smellTotal": 1
+    },
+    {
       "run": "nvidia-nemotron-3-p1",
       "scored": true,
       "tests": 14,
@@ -743,6 +818,51 @@
       "dPrecision": 0,
       "dF1": 3.6719228413961815,
       "dSmellDensity": -0.04081632653061224
+    },
+    {
+      "run": "gemini-pro-p2-r1",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 1.8970189701896913,
+      "dPrecision": 0,
+      "dF1": 0.9628287707997742,
+      "dSmellDensity": -0.008547008547008548
+    },
+    {
+      "run": "gemini-pro-p2-r2",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 2.168021680216796,
+      "dPrecision": 0.7751937984496067,
+      "dF1": 1.4803962511544313,
+      "dSmellDensity": -0.007751937984496124
+    },
+    {
+      "run": "gemini-pro-p2-r3",
+      "dCoverageLines": 1.1700000000000017,
+      "dCoverageBranches": 2.6700000000000017,
+      "dMutationScore": 2.9810298102980965,
+      "dPrecision": 0.9433962264150892,
+      "dF1": 1.9784929533507238,
+      "dSmellDensity": -0.009433962264150943
+    },
+    {
+      "run": "gemini-pro-p2-r4",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 1.8970189701896913,
+      "dPrecision": 0,
+      "dF1": 0.9628287707997742,
+      "dSmellDensity": -0.005681818181818182
+    },
+    {
+      "run": "gemini-pro-p2-r5",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 1.8970189701896913,
+      "dPrecision": 0,
+      "dF1": 0.9628287707997742,
+      "dSmellDensity": -0.0056179775280898875
     },
     {
       "run": "nvidia-nemotron-3-p1",
@@ -2314,6 +2434,266 @@
         "precision": 0,
         "f1": 3.6719228413961815,
         "smellDensity": -0.04081632653061224
+      }
+    },
+    {
+      "runName": "gemini-pro-p2-r1",
+      "scored": true,
+      "numTests": 117,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 332,
+        "survived": 3,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 97.5609756097561
+      },
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smells": {
+        "total": 1,
+        "density": 0.008547008547008548,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 1.8970189701896913,
+        "precision": 0,
+        "f1": 0.9628287707997742,
+        "smellDensity": -0.008547008547008548
+      }
+    },
+    {
+      "runName": "gemini-pro-p2-r2",
+      "scored": true,
+      "numTests": 129,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 331,
+        "survived": 4,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 97.289972899729
+      },
+      "precision": 99.2248062015504,
+      "f1": 98.24786461841077,
+      "smells": {
+        "total": 1,
+        "density": 0.007751937984496124,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 2.168021680216796,
+        "precision": 0.7751937984496067,
+        "f1": 1.4803962511544313,
+        "smellDensity": -0.007751937984496124
+      }
+    },
+    {
+      "runName": "gemini-pro-p2-r3",
+      "scored": true,
+      "numTests": 106,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 98.83,
+        "branches": 96.66,
+        "statements": 98.83,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 328,
+        "survived": 6,
+        "timeout": 28,
+        "noCoverage": 7,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 96.4769647696477
+      },
+      "precision": 99.05660377358491,
+      "f1": 97.74976791621448,
+      "smells": {
+        "total": 1,
+        "density": 0.009433962264150943,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.1700000000000017,
+        "coverageBranches": 2.6700000000000017,
+        "mutationScore": 2.9810298102980965,
+        "precision": 0.9433962264150892,
+        "f1": 1.9784929533507238,
+        "smellDensity": -0.009433962264150943
+      }
+    },
+    {
+      "runName": "gemini-pro-p2-r4",
+      "scored": true,
+      "numTests": 176,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 332,
+        "survived": 3,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 97.5609756097561
+      },
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smells": {
+        "total": 1,
+        "density": 0.005681818181818182,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 1.8970189701896913,
+        "precision": 0,
+        "f1": 0.9628287707997742,
+        "smellDensity": -0.005681818181818182
+      }
+    },
+    {
+      "runName": "gemini-pro-p2-r5",
+      "scored": true,
+      "numTests": 178,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 332,
+        "survived": 3,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 97.5609756097561
+      },
+      "precision": 100,
+      "f1": 98.76543209876543,
+      "smells": {
+        "total": 1,
+        "density": 0.0056179775280898875,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 1.8970189701896913,
+        "precision": 0,
+        "f1": 0.9628287707997742,
+        "smellDensity": -0.0056179775280898875
       }
     },
     {
