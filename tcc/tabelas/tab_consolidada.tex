@@ -1,0 +1,22 @@
+\begin{table}[htb]
+    \centering
+    \ABNTEXfontereduzida
+    \begin{minipage}{\textwidth}
+        \caption{Teto e condições: média $\pm$ desvio padrão das gerações pontuadas}
+        \label{tab:consolidada}
+        \centering\scriptsize\setlength{\tabcolsep}{3pt}
+        \begin{tabular}{llr rr rr rrr r}
+            \toprule
+            \textbf{Condição} & \textbf{Prompt} & $n$ & \textbf{Testes} & \textbf{FP} & \textbf{Cob.L} & \textbf{Cob.R} & $R$ & $P$ & $F_1$ & \textbf{Smells/teste} \\
+            \midrule
+            Teto & -- & 1 & 119 & 0 & 100,0 & 99,3 & 99,5 & 100,0 & 99,7 & 0,00 \\
+            \midrule
+            Fable & P1 & 5 & 118 & 0,0 & 98,4 $\pm$ 0,3 & 96,0 $\pm$ 0,5 & 91,1 $\pm$ 0,4 & 100,0 $\pm$ 0,0 & 95,3 $\pm$ 0,2 & 0,09 $\pm$ 0,06 \\
+            Fable & P2 & 5 & 164 & 0,8 & 99,2 $\pm$ 0,3 & 97,5 $\pm$ 0,7 & 95,9 $\pm$ 0,5 & 99,5 $\pm$ 0,6 & 97,7 $\pm$ 0,1 & 0,03 $\pm$ 0,02 \\
+            DeepSeek & P1 & 5 & 28 & 0,2 & 97,0 $\pm$ 1,1 & 92,2 $\pm$ 3,1 & 81,6 $\pm$ 2,5 & 99,6 $\pm$ 0,9 & 89,7 $\pm$ 1,6 & 0,04 $\pm$ 0,08 \\
+            DeepSeek & P2 & 5 & 90 & 0,2 & 99,3 $\pm$ 0,2 & 97,6 $\pm$ 0,6 & 94,6 $\pm$ 1,6 & 99,8 $\pm$ 0,5 & 97,1 $\pm$ 0,9 & 0,02 $\pm$ 0,02 \\
+            \bottomrule
+        \end{tabular}
+        \legend{Fonte: Própria do autor (2026). Cobertura, $R$, $P$ e $F_1$ em \%; $n$ = gerações pontuadas.}
+    \end{minipage}
+\end{table}

@@ -33,9 +33,9 @@ import matplotlib.pyplot as plt  # noqa: E402
 RUN_RE = re.compile(r"^(?P<slug>.+)-(?P<prompt>p[12])-r(?P<rep>\d+)$")
 
 LABELS = {
-    "fable-5-1": "Fable 5.1",
-    "gemini-pro": "Gemini Pro",
-    "deepseek-v4-1-flash": "DeepSeek V4.1 Flash",
+    "fable-5-1": "Fable",
+    "gemini-pro": "Gemini",
+    "deepseek-v4-1-flash": "DeepSeek",
 }
 MODEL_ORDER = ["fable-5-1", "gemini-pro", "deepseek-v4-1-flash"]
 
@@ -117,7 +117,7 @@ def table_env(caption: str, label: str, colspec: str, header: str, body: str, no
     legend = "Fonte: Própria do autor (2026)." + (" " + note if note else "")
     return (
         "\\begin{table}[htb]\n    \\centering\n    \\ABNTEXfontereduzida\n    \\begin{minipage}{\\textwidth}\n"
-        f"        \\caption{{{caption}}}\n        \\label{{{label}}}\n        \\centering\n"
+        f"        \\caption{{{caption}}}\n        \\label{{{label}}}\n        \\centering\\scriptsize\\setlength{{\\tabcolsep}}{{3pt}}\n"
         f"        \\begin{{tabular}}{{{colspec}}}\n            \\toprule\n            {header} \\\\\n            \\midrule\n"
         f"{body}            \\bottomrule\n        \\end{{tabular}}\n        \\legend{{{legend}}}\n    \\end{{minipage}}\n\\end{{table}}\n"
     )

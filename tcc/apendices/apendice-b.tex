@@ -1,28 +1,45 @@
 % ==============================================================================
-% APÊNDICE B — MUTANTES EQUIVALENTES E INALCANÇÁVEIS DO TETO
+% APÊNDICE B — MUTANTES EQUIVALENTES DO TETO
 % ==============================================================================
 
 \section{Mutantes que restam vivos no teto}
 \label{ap:equivalentes}
 
-A suíte do teto mata 361 dos 369 mutantes válidos (332 por falha de asserção e 29 por \textit{timeout} legítimo). O \autoref{qua:equivalentes} registra, para cada um dos oito restantes, o argumento de por que nenhum teste pela API pública pode distingui-lo do programa original. O registro completo, com o censo do Stryker e o histórico da revisão, está no arquivo \texttt{runs/ceiling/EQUIVALENT\_MUTANTS.md} do repositório.
+A suíte do teto mata 367 dos 369 mutantes válidos (338 por falha de asserção e 29 por \textit{timeout} legítimo). O \autoref{qua:equivalentes} registra, para cada um dos dois restantes, o argumento de por que nenhum teste pode distingui-lo do programa original, e o \autoref{qua:revisao2} registra os seis mutantes que uma primeira análise havia classificado como inalcançáveis e que a segunda revisão matou por injeção de dependência. O registro completo, com o censo do Stryker e o histórico das revisões, está no arquivo \texttt{runs/ceiling/EQUIVALENT\_MUTANTS.md} do repositório.
 
 \begin{quadro}[htb]
     \centering
     \ABNTEXfontereduzida
     \begin{minipage}{\textwidth}
-        \caption{Mutantes equivalentes e inalcançáveis do teto}
+        \caption{Mutantes equivalentes do teto}
         \label{qua:equivalentes}
         \centering
-        \begin{tabular}{p{0.5cm}p{3.1cm}p{3.6cm}p{7.6cm}}
+        \begin{tabular}{p{0.5cm}p{2.6cm}p{3.8cm}p{7.9cm}}
             \toprule
-            \textbf{\#} & \textbf{Local} & \textbf{Mutação} & \textbf{Por que não pode ser morto} \\
+            \textbf{\#} & \textbf{Local} & \textbf{Mutação} & \textbf{Por que nenhum teste distingue} \\
             \midrule
-            1 & \texttt{lexer.ts:12} & \texttt{currentChar = '\textbackslash 0'} $\to$ \texttt{""} & Inicializador morto: o construtor chama \texttt{readChar()} imediatamente, que reatribui o campo em todos os caminhos antes de qualquer leitura. \\
-            2 & \texttt{lexer.ts:109} & \texttt{peekChar()} devolve \texttt{""} em vez de \texttt{'\textbackslash 0'} no fim da entrada & O valor só é usado em comparações com \texttt{'>'} e \texttt{'='} e nos classificadores \texttt{isLetter}, \texttt{isNumber} e \texttt{isDot}. \texttt{"".charCodeAt(0)} é \texttt{NaN} e \texttt{'\textbackslash 0'.charCodeAt(0)} é 0; ambos falham em todas as comparações de faixa, e nenhum dos dois é \texttt{'.'}, \texttt{'>'} ou \texttt{'='}. \\
-            3--4 & \texttt{parser.ts:143--144} & bloco do \texttt{if (!this.expectPeekToken(Rparn))} e sua mensagem & \texttt{expectPeekToken} devolve um \texttt{Token} (objeto, sempre verdadeiro) ou lança exceção; a condição nunca é verdadeira. Código morto. \\
-            5--6 & \texttt{evaluator.ts:47--48} & ramo \texttt{default} do \texttt{switch} de operadores binários e sua mensagem & Todo \texttt{BinaryExpression} vem do \textit{parser}, que só produz os operadores tratados pelo \texttt{switch} (infixos, \texttt{is [not] null} e \texttt{between}). A função que avalia a árvore não é exportada, então não há como injetar outro operador. \\
-            7--8 & \texttt{evaluator.ts:77--78} & ramo \texttt{default} do \texttt{switch} de tipos de nó e sua mensagem & O único tipo da união \texttt{Expression} não tratado é \texttt{UnaryExpression}, que o \textit{parser} nunca constrói (não há \textit{parser} prefixo para \texttt{-} ou \texttt{not}). Mesmo argumento de não exportação. \\
+            1 & \texttt{lexer.ts:12} & \texttt{currentChar = '\textbackslash 0'} $\to$ \texttt{""} & Inicializador morto: o construtor chama \texttt{readChar()} imediatamente, que reatribui o campo em todos os caminhos antes de qualquer leitura. O campo é privado e nunca é lido antes dessa reatribuição, então nem injeção o alcança. \\
+            2 & \texttt{lexer.ts:109} & \texttt{peekChar()} devolve \texttt{""} em vez de \texttt{'\textbackslash 0'} no fim da entrada & O valor só é usado em comparações com \texttt{'>'} e \texttt{'='} e nos classificadores \texttt{isLetter}, \texttt{isNumber} e \texttt{isDot}. \texttt{"".charCodeAt(0)} é \texttt{NaN} e \texttt{'\textbackslash 0'.charCodeAt(0)} é 0; ambos falham em todas as comparações de faixa, e nenhum dos dois é \texttt{'.'}, \texttt{'>'} ou \texttt{'='}. O método é privado e seu retorno nunca escapa da classe. \\
+            \bottomrule
+        \end{tabular}
+        \legend{Fonte: Própria do autor (2026).}
+    \end{minipage}
+\end{quadro}
+
+\begin{quadro}[htb]
+    \centering
+    \ABNTEXfontereduzida
+    \begin{minipage}{\textwidth}
+        \caption{Mutantes classificados como inalcançáveis na primeira análise e mortos na segunda revisão}
+        \label{qua:revisao2}
+        \centering
+        \begin{tabular}{p{0.7cm}p{3.0cm}p{4.2cm}p{6.9cm}}
+            \toprule
+            \textbf{\#} & \textbf{Local} & \textbf{Mutação} & \textbf{Teste que o mata} \\
+            \midrule
+            3--4 & \texttt{evaluator.ts:47--48} & ramo \texttt{default} do \texttt{switch} de operadores binários e sua mensagem & \texttt{parse} envolvido com \texttt{vi.mock} devolve, uma vez, \texttt{BinaryExpression(Not, 1, 2)}; \texttt{evaluate} deve lançar \texttt{Operator not not implemented}. \\
+            5--6 & \texttt{evaluator.ts:77--78} & ramo \texttt{default} do \texttt{switch} de tipos de nó e sua mensagem & \texttt{parse} devolve, uma vez, \texttt{UnaryExpression(Minus, 1)}; \texttt{evaluate} deve lançar \texttt{Invalid AST node}. \\
+            7--8 & \texttt{parser.ts:143--144} & bloco do \texttt{if (!this.expectPeekToken(Rparn))} e sua mensagem & \texttt{vi.spyOn} em \texttt{Parser.prototype.expectPeekToken} devolve \texttt{undefined} uma vez; \texttt{parse('(1)')} deve lançar \texttt{Expected ) but got \ldots}. \\
             \bottomrule
         \end{tabular}
         \legend{Fonte: Própria do autor (2026).}
