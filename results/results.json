@@ -77,6 +77,156 @@
       "smellTotal": 8
     },
     {
+      "run": "deepseek-v4-1-flash-p1-r1",
+      "scored": true,
+      "tests": 50,
+      "falsePositives": 1,
+      "coverageLines": 98.44,
+      "coverageBranches": 95.86,
+      "coverageStatements": 98.44,
+      "coverageFunctions": 100,
+      "mutationScore": 81.84281842818429,
+      "precision": 98,
+      "f1": 89.19562400168772,
+      "smellDensity": 0.04,
+      "smellTotal": 2
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r2",
+      "scored": true,
+      "tests": 33,
+      "falsePositives": 0,
+      "coverageLines": 97.09,
+      "coverageBranches": 91.91,
+      "coverageStatements": 97.09,
+      "coverageFunctions": 100,
+      "mutationScore": 79.13279132791328,
+      "precision": 100,
+      "f1": 88.35098335854767,
+      "smellDensity": 0.18181818181818182,
+      "smellTotal": 6
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r3",
+      "scored": true,
+      "tests": 19,
+      "falsePositives": 0,
+      "coverageLines": 96.89,
+      "coverageBranches": 92.14,
+      "coverageStatements": 96.89,
+      "coverageFunctions": 100,
+      "mutationScore": 84.28184281842819,
+      "precision": 100,
+      "f1": 91.47058823529412,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r4",
+      "scored": true,
+      "tests": 21,
+      "falsePositives": 0,
+      "coverageLines": 97.28,
+      "coverageBranches": 93.61,
+      "coverageStatements": 97.28,
+      "coverageFunctions": 100,
+      "mutationScore": 83.73983739837398,
+      "precision": 100,
+      "f1": 91.1504424778761,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r5",
+      "scored": true,
+      "tests": 19,
+      "falsePositives": 0,
+      "coverageLines": 95.34,
+      "coverageBranches": 87.31,
+      "coverageStatements": 95.34,
+      "coverageFunctions": 100,
+      "mutationScore": 78.86178861788618,
+      "precision": 100,
+      "f1": 88.18181818181819,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r1",
+      "scored": true,
+      "tests": 68,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.31,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 92.41192411924119,
+      "precision": 100,
+      "f1": 96.05633802816902,
+      "smellDensity": 0.014705882352941176,
+      "smellTotal": 1
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r2",
+      "scored": true,
+      "tests": 75,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.29,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 96.4769647696477,
+      "precision": 100,
+      "f1": 98.20689655172413,
+      "smellDensity": 0.05333333333333334,
+      "smellTotal": 4
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r3",
+      "scored": true,
+      "tests": 92,
+      "falsePositives": 1,
+      "coverageLines": 99.61,
+      "coverageBranches": 98.66,
+      "coverageStatements": 99.61,
+      "coverageFunctions": 100,
+      "mutationScore": 94.03794037940379,
+      "precision": 98.91304347826086,
+      "f1": 96.41390470665465,
+      "smellDensity": 0.03260869565217391,
+      "smellTotal": 3
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r4",
+      "scored": true,
+      "tests": 83,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.29,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 94.3089430894309,
+      "precision": 100,
+      "f1": 97.07112970711297,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r5",
+      "scored": true,
+      "tests": 131,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.33,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 95.6639566395664,
+      "precision": 100,
+      "f1": 97.78393351800554,
+      "smellDensity": 0.022900763358778626,
+      "smellTotal": 3
+    },
+    {
       "run": "fable-5-1-p1-r1",
       "scored": true,
       "tests": 125,
@@ -293,6 +443,96 @@
       "dPrecision": 0,
       "dF1": 8.098304922428639,
       "dSmellDensity": -0.07692307692307693
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r1",
+      "dCoverageLines": 1.5600000000000023,
+      "dCoverageBranches": 3.469999999999999,
+      "dMutationScore": 17.615176151761503,
+      "dPrecision": 2,
+      "dF1": 10.532636867877486,
+      "dSmellDensity": -0.04
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r2",
+      "dCoverageLines": 2.9099999999999966,
+      "dCoverageBranches": 7.420000000000002,
+      "dMutationScore": 20.32520325203251,
+      "dPrecision": 0,
+      "dF1": 11.377277511017539,
+      "dSmellDensity": -0.18181818181818182
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r3",
+      "dCoverageLines": 3.1099999999999994,
+      "dCoverageBranches": 7.189999999999998,
+      "dMutationScore": 15.176151761517602,
+      "dPrecision": 0,
+      "dF1": 8.257672634271088,
+      "dSmellDensity": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r4",
+      "dCoverageLines": 2.719999999999999,
+      "dCoverageBranches": 5.719999999999999,
+      "dMutationScore": 15.718157181571812,
+      "dPrecision": 0,
+      "dF1": 8.577818391689107,
+      "dSmellDensity": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p1-r5",
+      "dCoverageLines": 4.659999999999997,
+      "dCoverageBranches": 12.019999999999996,
+      "dMutationScore": 20.596205962059614,
+      "dPrecision": 0,
+      "dF1": 11.546442687747017,
+      "dSmellDensity": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r1",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 2.019999999999996,
+      "dMutationScore": 7.046070460704598,
+      "dPrecision": 0,
+      "dF1": 3.6719228413961815,
+      "dSmellDensity": -0.014705882352941176
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r2",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 2.039999999999992,
+      "dMutationScore": 2.9810298102980965,
+      "dPrecision": 0,
+      "dF1": 1.5213643178410763,
+      "dSmellDensity": -0.05333333333333334
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r3",
+      "dCoverageLines": 0.39000000000000057,
+      "dCoverageBranches": 0.6700000000000017,
+      "dMutationScore": 5.420054200541998,
+      "dPrecision": 1.0869565217391397,
+      "dF1": 3.3143561629105562,
+      "dSmellDensity": -0.03260869565217391
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r4",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 2.039999999999992,
+      "dMutationScore": 5.149051490514893,
+      "dPrecision": 0,
+      "dF1": 2.657131162452231,
+      "dSmellDensity": 0
+    },
+    {
+      "run": "deepseek-v4-1-flash-p2-r5",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 2,
+      "dMutationScore": 3.794037940379397,
+      "dPrecision": 0,
+      "dF1": 1.9443273515596644,
+      "dSmellDensity": -0.022900763358778626
     },
     {
       "run": "fable-5-1-p1-r1",
@@ -654,6 +894,526 @@
         "precision": 0,
         "f1": 8.098304922428639,
         "smellDensity": -0.07692307692307693
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p1-r1",
+      "scored": true,
+      "numTests": 50,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 98.44,
+        "branches": 95.86,
+        "statements": 98.44,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 277,
+        "survived": 55,
+        "timeout": 25,
+        "noCoverage": 12,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 81.84281842818429
+      },
+      "precision": 98,
+      "f1": 89.19562400168772,
+      "smells": {
+        "total": 2,
+        "density": 0.04,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.5600000000000023,
+        "coverageBranches": 3.469999999999999,
+        "mutationScore": 17.615176151761503,
+        "precision": 2,
+        "f1": 10.532636867877486,
+        "smellDensity": -0.04
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p1-r2",
+      "scored": true,
+      "numTests": 33,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 97.09,
+        "branches": 91.91,
+        "statements": 97.09,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 267,
+        "survived": 60,
+        "timeout": 25,
+        "noCoverage": 17,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 79.13279132791328
+      },
+      "precision": 100,
+      "f1": 88.35098335854767,
+      "smells": {
+        "total": 6,
+        "density": 0.18181818181818182,
+        "byType": {
+          "AnonymousTest": 1,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 2,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 2,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 2.9099999999999966,
+        "coverageBranches": 7.420000000000002,
+        "mutationScore": 20.32520325203251,
+        "precision": 0,
+        "f1": 11.377277511017539,
+        "smellDensity": -0.18181818181818182
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p1-r3",
+      "scored": true,
+      "numTests": 19,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 96.89,
+        "branches": 92.14,
+        "statements": 96.89,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 286,
+        "survived": 43,
+        "timeout": 25,
+        "noCoverage": 15,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 84.28184281842819
+      },
+      "precision": 100,
+      "f1": 91.47058823529412,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 3.1099999999999994,
+        "coverageBranches": 7.189999999999998,
+        "mutationScore": 15.176151761517602,
+        "precision": 0,
+        "f1": 8.257672634271088,
+        "smellDensity": 0
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p1-r4",
+      "scored": true,
+      "numTests": 21,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 97.28,
+        "branches": 93.61,
+        "statements": 97.28,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 284,
+        "survived": 47,
+        "timeout": 25,
+        "noCoverage": 13,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 83.73983739837398
+      },
+      "precision": 100,
+      "f1": 91.1504424778761,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 2.719999999999999,
+        "coverageBranches": 5.719999999999999,
+        "mutationScore": 15.718157181571812,
+        "precision": 0,
+        "f1": 8.577818391689107,
+        "smellDensity": 0
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p1-r5",
+      "scored": true,
+      "numTests": 19,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 95.34,
+        "branches": 87.31,
+        "statements": 95.34,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 266,
+        "survived": 52,
+        "timeout": 25,
+        "noCoverage": 26,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 78.86178861788618
+      },
+      "precision": 100,
+      "f1": 88.18181818181819,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 4.659999999999997,
+        "coverageBranches": 12.019999999999996,
+        "mutationScore": 20.596205962059614,
+        "precision": 0,
+        "f1": 11.546442687747017,
+        "smellDensity": 0
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p2-r1",
+      "scored": true,
+      "numTests": 68,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.31,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 316,
+        "survived": 22,
+        "timeout": 25,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 92.41192411924119
+      },
+      "precision": 100,
+      "f1": 96.05633802816902,
+      "smells": {
+        "total": 1,
+        "density": 0.014705882352941176,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 2.019999999999996,
+        "mutationScore": 7.046070460704598,
+        "precision": 0,
+        "f1": 3.6719228413961815,
+        "smellDensity": -0.014705882352941176
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p2-r2",
+      "scored": true,
+      "numTests": 75,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.29,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 328,
+        "survived": 7,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 96.4769647696477
+      },
+      "precision": 100,
+      "f1": 98.20689655172413,
+      "smells": {
+        "total": 4,
+        "density": 0.05333333333333334,
+        "byType": {
+          "AnonymousTest": 3,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 2.039999999999992,
+        "mutationScore": 2.9810298102980965,
+        "precision": 0,
+        "f1": 1.5213643178410763,
+        "smellDensity": -0.05333333333333334
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p2-r3",
+      "scored": true,
+      "numTests": 92,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 99.61,
+        "branches": 98.66,
+        "statements": 99.61,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 318,
+        "survived": 18,
+        "timeout": 29,
+        "noCoverage": 4,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 94.03794037940379
+      },
+      "precision": 98.91304347826086,
+      "f1": 96.41390470665465,
+      "smells": {
+        "total": 3,
+        "density": 0.03260869565217391,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 2,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.39000000000000057,
+        "coverageBranches": 0.6700000000000017,
+        "mutationScore": 5.420054200541998,
+        "precision": 1.0869565217391397,
+        "f1": 3.3143561629105562,
+        "smellDensity": -0.03260869565217391
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p2-r4",
+      "scored": true,
+      "numTests": 83,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.29,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 319,
+        "survived": 15,
+        "timeout": 29,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 94.3089430894309
+      },
+      "precision": 100,
+      "f1": 97.07112970711297,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 2.039999999999992,
+        "mutationScore": 5.149051490514893,
+        "precision": 0,
+        "f1": 2.657131162452231,
+        "smellDensity": 0
+      }
+    },
+    {
+      "runName": "deepseek-v4-1-flash-p2-r5",
+      "scored": true,
+      "numTests": 131,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.33,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 324,
+        "survived": 10,
+        "timeout": 29,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 95.6639566395664
+      },
+      "precision": 100,
+      "f1": 97.78393351800554,
+      "smells": {
+        "total": 3,
+        "density": 0.022900763358778626,
+        "byType": {
+          "AnonymousTest": 2,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 2,
+        "mutationScore": 3.794037940379397,
+        "precision": 0,
+        "f1": 1.9443273515596644,
+        "smellDensity": -0.022900763358778626
       }
     },
     {
