@@ -3,6 +3,7 @@ node_modules/
 reports/
 coverage/
 stryker-report.json
-/results/
+/results/*
+!/results/results.json
 __pycache__/
 .DS_Store

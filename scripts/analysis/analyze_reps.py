@@ -262,7 +262,7 @@ def main() -> None:
     plt.rcParams.update({"font.size": 9, "font.family": "serif", "axes.spines.top": False, "axes.spines.right": False,
                          "axes.edgecolor": "#555555", "axes.labelcolor": "#111111", "xtick.color": "#333333", "ytick.color": "#333333"})
     labels_models = [l for l in dict.fromkeys(scored.sort_values("order")["label"])]
-    fig, ax = plt.subplots(figsize=(6.3, 3.0))
+    fig, ax = plt.subplots(figsize=(6.3, 3.1))
     xs, xt = [], []
     for i, lab in enumerate(labels_models):
         for j, p in enumerate(["p1", "p2"]):
@@ -283,8 +283,11 @@ def main() -> None:
     for i, lab in enumerate(labels_models):
         ax.text(i * 3 + 0.5, -0.16, lab, transform=ax.get_xaxis_transform(), ha="center", va="top", fontsize=8.5, color="#111111")
     ax.set_ylabel("Escore de mutação $R$ (%)")
+    allr = scored["mutationScore"].to_numpy(float)
+    if len(allr):
+        ax.set_ylim(max(0, np.floor(allr.min() / 5) * 5 - 2), 101.5)
     ax.yaxis.grid(True, color="#e6e6e6", linewidth=0.6); ax.set_axisbelow(True)
-    ax.legend(frameon=False, loc="lower left", fontsize=8, title=None)
+    ax.legend(frameon=False, loc="upper left", bbox_to_anchor=(1.0, 1.0), fontsize=8, title=None, borderaxespad=0.2)
     fig.tight_layout(); fig.savefig(out / "figuras" / "fig_r_por_condicao.pdf"); fig.savefig(out / "figuras" / "fig_r_por_condicao.png", dpi=160); plt.close(fig)
 
     # ---------- Figura 2: distância por dimensão, P1 vs P2, por modelo ----------

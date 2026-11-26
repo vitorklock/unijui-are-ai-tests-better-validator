@@ -1,0 +1,1284 @@
+{
+  "ceiling": "ceiling",
+  "consolidated": [
+    {
+      "run": "ceiling",
+      "scored": true,
+      "tests": 119,
+      "falsePositives": 0,
+      "coverageLines": 100,
+      "coverageBranches": 99.33,
+      "coverageStatements": 100,
+      "coverageFunctions": 100,
+      "mutationScore": 99.45799457994579,
+      "precision": 100,
+      "f1": 99.7282608695652,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "claude-opus-ultracode-p1",
+      "scored": true,
+      "tests": 132,
+      "falsePositives": 0,
+      "coverageLines": 98.44,
+      "coverageBranches": 95.97,
+      "coverageStatements": 98.44,
+      "coverageFunctions": 100,
+      "mutationScore": 91.869918699187,
+      "precision": 100,
+      "f1": 95.76271186440678,
+      "smellDensity": 0.03787878787878788,
+      "smellTotal": 5
+    },
+    {
+      "run": "claude-opus-ultracode-p2",
+      "scored": true,
+      "tests": 104,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.31,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 92.6829268292683,
+      "precision": 100,
+      "f1": 96.20253164556964,
+      "smellDensity": 0,
+      "smellTotal": 0
+    },
+    {
+      "run": "claude-sonnet-medium-p1",
+      "scored": true,
+      "tests": 88,
+      "falsePositives": 2,
+      "coverageLines": 95.34,
+      "coverageBranches": 90.97,
+      "coverageStatements": 95.34,
+      "coverageFunctions": 100,
+      "mutationScore": 75.06775067750678,
+      "precision": 97.72727272727273,
+      "f1": 84.91178043129567,
+      "smellDensity": 0.125,
+      "smellTotal": 11
+    },
+    {
+      "run": "claude-sonnet-medium-p2",
+      "scored": true,
+      "tests": 104,
+      "falsePositives": 0,
+      "coverageLines": 98.06,
+      "coverageBranches": 95.07,
+      "coverageStatements": 98.06,
+      "coverageFunctions": 100,
+      "mutationScore": 84.5528455284553,
+      "precision": 100,
+      "f1": 91.62995594713657,
+      "smellDensity": 0.07692307692307693,
+      "smellTotal": 8
+    },
+    {
+      "run": "fable-5-1-p1-r1",
+      "scored": true,
+      "tests": 125,
+      "falsePositives": 0,
+      "coverageLines": 98.06,
+      "coverageBranches": 95.27,
+      "coverageStatements": 98.06,
+      "coverageFunctions": 100,
+      "mutationScore": 90.78590785907859,
+      "precision": 100,
+      "f1": 95.17045454545455,
+      "smellDensity": 0.008,
+      "smellTotal": 1
+    },
+    {
+      "run": "fable-5-1-p1-r2",
+      "scored": true,
+      "tests": 98,
+      "falsePositives": 0,
+      "coverageLines": 98.44,
+      "coverageBranches": 96,
+      "coverageStatements": 98.44,
+      "coverageFunctions": 100,
+      "mutationScore": 91.05691056910568,
+      "precision": 100,
+      "f1": 95.31914893617021,
+      "smellDensity": 0.11224489795918367,
+      "smellTotal": 11
+    },
+    {
+      "run": "fable-5-1-p1-r3",
+      "scored": true,
+      "tests": 109,
+      "falsePositives": 0,
+      "coverageLines": 98.44,
+      "coverageBranches": 96,
+      "coverageStatements": 98.44,
+      "coverageFunctions": 100,
+      "mutationScore": 91.59891598915989,
+      "precision": 100,
+      "f1": 95.61527581329563,
+      "smellDensity": 0.1559633027522936,
+      "smellTotal": 17
+    },
+    {
+      "run": "fable-5-1-p1-r4",
+      "scored": true,
+      "tests": 115,
+      "falsePositives": 0,
+      "coverageLines": 98.83,
+      "coverageBranches": 96.68,
+      "coverageStatements": 98.83,
+      "coverageFunctions": 100,
+      "mutationScore": 91.32791327913279,
+      "precision": 100,
+      "f1": 95.46742209631728,
+      "smellDensity": 0.11304347826086956,
+      "smellTotal": 13
+    },
+    {
+      "run": "fable-5-1-p1-r5",
+      "scored": true,
+      "tests": 144,
+      "falsePositives": 0,
+      "coverageLines": 98.44,
+      "coverageBranches": 96,
+      "coverageStatements": 98.44,
+      "coverageFunctions": 100,
+      "mutationScore": 90.5149051490515,
+      "precision": 100,
+      "f1": 95.02133712660029,
+      "smellDensity": 0.041666666666666664,
+      "smellTotal": 6
+    },
+    {
+      "run": "fable-5-1-p2-r1",
+      "scored": true,
+      "tests": 146,
+      "falsePositives": 2,
+      "coverageLines": 99.61,
+      "coverageBranches": 98.67,
+      "coverageStatements": 99.61,
+      "coverageFunctions": 100,
+      "mutationScore": 96.7479674796748,
+      "precision": 98.63013698630137,
+      "f1": 97.67998631932964,
+      "smellDensity": 0.0547945205479452,
+      "smellTotal": 8
+    },
+    {
+      "run": "fable-5-1-p2-r2",
+      "scored": true,
+      "tests": 182,
+      "falsePositives": 1,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 95.9349593495935,
+      "precision": 99.45054945054946,
+      "f1": 97.66112622602253,
+      "smellDensity": 0.01098901098901099,
+      "smellTotal": 2
+    },
+    {
+      "run": "fable-5-1-p2-r3",
+      "scored": true,
+      "tests": 181,
+      "falsePositives": 1,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.35,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 95.6639566395664,
+      "precision": 99.4475138121547,
+      "f1": 97.5190502866176,
+      "smellDensity": 0.022099447513812154,
+      "smellTotal": 4
+    },
+    {
+      "run": "fable-5-1-p2-r4",
+      "scored": true,
+      "tests": 180,
+      "falsePositives": 0,
+      "coverageLines": 99.22,
+      "coverageBranches": 97.36,
+      "coverageStatements": 99.22,
+      "coverageFunctions": 100,
+      "mutationScore": 95.39295392953929,
+      "precision": 100,
+      "f1": 97.64216366158114,
+      "smellDensity": 0.022222222222222223,
+      "smellTotal": 4
+    },
+    {
+      "run": "fable-5-1-p2-r5",
+      "scored": true,
+      "tests": 133,
+      "falsePositives": 0,
+      "coverageLines": 98.83,
+      "coverageBranches": 96.68,
+      "coverageStatements": 98.83,
+      "coverageFunctions": 100,
+      "mutationScore": 95.6639566395664,
+      "precision": 100,
+      "f1": 97.78393351800554,
+      "smellDensity": 0.045112781954887216,
+      "smellTotal": 6
+    },
+    {
+      "run": "nvidia-nemotron-3-p1",
+      "scored": true,
+      "tests": 14,
+      "falsePositives": 0,
+      "coverageLines": 87.2,
+      "coverageBranches": 78.26,
+      "coverageStatements": 87.2,
+      "coverageFunctions": 90.24,
+      "mutationScore": 60.70460704607046,
+      "precision": 100,
+      "f1": 75.54806070826307,
+      "smellDensity": 0.14285714285714285,
+      "smellTotal": 2
+    },
+    {
+      "run": "nvidia-nemotron-3-p2",
+      "scored": true,
+      "tests": 12,
+      "falsePositives": 2,
+      "coverageLines": 91.47,
+      "coverageBranches": 87.09,
+      "coverageStatements": 91.47,
+      "coverageFunctions": 95.12,
+      "mutationScore": 70.46070460704607,
+      "precision": 83.33333333333334,
+      "f1": 76.35829662261379,
+      "smellDensity": 0,
+      "smellTotal": 0
+    }
+  ],
+  "gaps": [
+    {
+      "run": "claude-opus-ultracode-p1",
+      "dCoverageLines": 1.5600000000000023,
+      "dCoverageBranches": 3.3599999999999994,
+      "dMutationScore": 7.588075880758794,
+      "dPrecision": 0,
+      "dF1": 3.9655490051584223,
+      "dSmellDensity": -0.03787878787878788
+    },
+    {
+      "run": "claude-opus-ultracode-p2",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 2.019999999999996,
+      "dMutationScore": 6.7750677506774934,
+      "dPrecision": 0,
+      "dF1": 3.525729223995569,
+      "dSmellDensity": 0
+    },
+    {
+      "run": "claude-sonnet-medium-p1",
+      "dCoverageLines": 4.659999999999997,
+      "dCoverageBranches": 8.36,
+      "dMutationScore": 24.39024390243901,
+      "dPrecision": 2.2727272727272663,
+      "dF1": 14.816480438269537,
+      "dSmellDensity": -0.125
+    },
+    {
+      "run": "claude-sonnet-medium-p2",
+      "dCoverageLines": 1.9399999999999977,
+      "dCoverageBranches": 4.260000000000005,
+      "dMutationScore": 14.905149051490497,
+      "dPrecision": 0,
+      "dF1": 8.098304922428639,
+      "dSmellDensity": -0.07692307692307693
+    },
+    {
+      "run": "fable-5-1-p1-r1",
+      "dCoverageLines": 1.9399999999999977,
+      "dCoverageBranches": 4.060000000000002,
+      "dMutationScore": 8.672086720867199,
+      "dPrecision": 0,
+      "dF1": 4.557806324110658,
+      "dSmellDensity": -0.008
+    },
+    {
+      "run": "fable-5-1-p1-r2",
+      "dCoverageLines": 1.5600000000000023,
+      "dCoverageBranches": 3.3299999999999983,
+      "dMutationScore": 8.401084010840108,
+      "dPrecision": 0,
+      "dF1": 4.409111933394996,
+      "dSmellDensity": -0.11224489795918367
+    },
+    {
+      "run": "fable-5-1-p1-r3",
+      "dCoverageLines": 1.5600000000000023,
+      "dCoverageBranches": 3.3299999999999983,
+      "dMutationScore": 7.859078590785899,
+      "dPrecision": 0,
+      "dF1": 4.112985056269579,
+      "dSmellDensity": -0.1559633027522936
+    },
+    {
+      "run": "fable-5-1-p1-r4",
+      "dCoverageLines": 1.1700000000000017,
+      "dCoverageBranches": 2.6499999999999915,
+      "dMutationScore": 8.130081300813004,
+      "dPrecision": 0,
+      "dF1": 4.260838773247926,
+      "dSmellDensity": -0.11304347826086956
+    },
+    {
+      "run": "fable-5-1-p1-r5",
+      "dCoverageLines": 1.5600000000000023,
+      "dCoverageBranches": 3.3299999999999983,
+      "dMutationScore": 8.94308943089429,
+      "dPrecision": 0,
+      "dF1": 4.706923742964918,
+      "dSmellDensity": -0.041666666666666664
+    },
+    {
+      "run": "fable-5-1-p2-r1",
+      "dCoverageLines": 0.39000000000000057,
+      "dCoverageBranches": 0.6599999999999966,
+      "dMutationScore": 2.7100271002709917,
+      "dPrecision": 1.3698630136986338,
+      "dF1": 2.0482745502355613,
+      "dSmellDensity": -0.0547945205479452
+    },
+    {
+      "run": "fable-5-1-p2-r2",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 3.523035230352292,
+      "dPrecision": 0.5494505494505404,
+      "dF1": 2.0671346435426727,
+      "dSmellDensity": -0.01098901098901099
+    },
+    {
+      "run": "fable-5-1-p2-r3",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.980000000000004,
+      "dMutationScore": 3.794037940379397,
+      "dPrecision": 0.5524861878453038,
+      "dF1": 2.2092105829476054,
+      "dSmellDensity": -0.022099447513812154
+    },
+    {
+      "run": "fable-5-1-p2-r4",
+      "dCoverageLines": 0.7800000000000011,
+      "dCoverageBranches": 1.9699999999999989,
+      "dMutationScore": 4.065040650406502,
+      "dPrecision": 0,
+      "dF1": 2.086097207984068,
+      "dSmellDensity": -0.022222222222222223
+    },
+    {
+      "run": "fable-5-1-p2-r5",
+      "dCoverageLines": 1.1700000000000017,
+      "dCoverageBranches": 2.6499999999999915,
+      "dMutationScore": 3.794037940379397,
+      "dPrecision": 0,
+      "dF1": 1.9443273515596644,
+      "dSmellDensity": -0.045112781954887216
+    },
+    {
+      "run": "nvidia-nemotron-3-p1",
+      "dCoverageLines": 12.799999999999997,
+      "dCoverageBranches": 21.069999999999993,
+      "dMutationScore": 38.75338753387533,
+      "dPrecision": 0,
+      "dF1": 24.18020016130214,
+      "dSmellDensity": -0.14285714285714285
+    },
+    {
+      "run": "nvidia-nemotron-3-p2",
+      "dCoverageLines": 8.530000000000001,
+      "dCoverageBranches": 12.239999999999995,
+      "dMutationScore": 28.997289972899722,
+      "dPrecision": 16.666666666666657,
+      "dF1": 23.36996424695141,
+      "dSmellDensity": 0
+    }
+  ],
+  "runs": [
+    {
+      "runName": "ceiling",
+      "scored": true,
+      "numTests": 119,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 100,
+        "branches": 99.33,
+        "statements": 100,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 338,
+        "survived": 2,
+        "timeout": 29,
+        "noCoverage": 0,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 99.45799457994579
+      },
+      "precision": 100,
+      "f1": 99.7282608695652,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      }
+    },
+    {
+      "runName": "claude-opus-ultracode-p1",
+      "scored": true,
+      "numTests": 132,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.44,
+        "branches": 95.97,
+        "statements": 98.44,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 313,
+        "survived": 21,
+        "timeout": 26,
+        "noCoverage": 9,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 91.869918699187
+      },
+      "precision": 100,
+      "f1": 95.76271186440678,
+      "smells": {
+        "total": 5,
+        "density": 0.03787878787878788,
+        "byType": {
+          "AnonymousTest": 4,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.5600000000000023,
+        "coverageBranches": 3.3599999999999994,
+        "mutationScore": 7.588075880758794,
+        "precision": 0,
+        "f1": 3.9655490051584223,
+        "smellDensity": -0.03787878787878788
+      }
+    },
+    {
+      "runName": "claude-opus-ultracode-p2",
+      "scored": true,
+      "numTests": 104,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.31,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 313,
+        "survived": 21,
+        "timeout": 29,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 92.6829268292683
+      },
+      "precision": 100,
+      "f1": 96.20253164556964,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 2.019999999999996,
+        "mutationScore": 6.7750677506774934,
+        "precision": 0,
+        "f1": 3.525729223995569,
+        "smellDensity": 0
+      }
+    },
+    {
+      "runName": "claude-sonnet-medium-p1",
+      "scored": true,
+      "numTests": 88,
+      "falsePositives": 2,
+      "coverage": {
+        "lines": 95.34,
+        "branches": 90.97,
+        "statements": 95.34,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 253,
+        "survived": 48,
+        "timeout": 24,
+        "noCoverage": 44,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 75.06775067750678
+      },
+      "precision": 97.72727272727273,
+      "f1": 84.91178043129567,
+      "smells": {
+        "total": 11,
+        "density": 0.125,
+        "byType": {
+          "AnonymousTest": 11,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 4.659999999999997,
+        "coverageBranches": 8.36,
+        "mutationScore": 24.39024390243901,
+        "precision": 2.2727272727272663,
+        "f1": 14.816480438269537,
+        "smellDensity": -0.125
+      }
+    },
+    {
+      "runName": "claude-sonnet-medium-p2",
+      "scored": true,
+      "numTests": 104,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.06,
+        "branches": 95.07,
+        "statements": 98.06,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 287,
+        "survived": 46,
+        "timeout": 25,
+        "noCoverage": 11,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 84.5528455284553
+      },
+      "precision": 100,
+      "f1": 91.62995594713657,
+      "smells": {
+        "total": 8,
+        "density": 0.07692307692307693,
+        "byType": {
+          "AnonymousTest": 7,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.9399999999999977,
+        "coverageBranches": 4.260000000000005,
+        "mutationScore": 14.905149051490497,
+        "precision": 0,
+        "f1": 8.098304922428639,
+        "smellDensity": -0.07692307692307693
+      }
+    },
+    {
+      "runName": "fable-5-1-p1-r1",
+      "scored": true,
+      "numTests": 125,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.06,
+        "branches": 95.27,
+        "statements": 98.06,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 310,
+        "survived": 24,
+        "timeout": 25,
+        "noCoverage": 10,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 90.78590785907859
+      },
+      "precision": 100,
+      "f1": 95.17045454545455,
+      "smells": {
+        "total": 1,
+        "density": 0.008,
+        "byType": {
+          "AnonymousTest": 1,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.9399999999999977,
+        "coverageBranches": 4.060000000000002,
+        "mutationScore": 8.672086720867199,
+        "precision": 0,
+        "f1": 4.557806324110658,
+        "smellDensity": -0.008
+      }
+    },
+    {
+      "runName": "fable-5-1-p1-r2",
+      "scored": true,
+      "numTests": 98,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.44,
+        "branches": 96,
+        "statements": 98.44,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 311,
+        "survived": 24,
+        "timeout": 25,
+        "noCoverage": 9,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 91.05691056910568
+      },
+      "precision": 100,
+      "f1": 95.31914893617021,
+      "smells": {
+        "total": 11,
+        "density": 0.11224489795918367,
+        "byType": {
+          "AnonymousTest": 9,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.5600000000000023,
+        "coverageBranches": 3.3299999999999983,
+        "mutationScore": 8.401084010840108,
+        "precision": 0,
+        "f1": 4.409111933394996,
+        "smellDensity": -0.11224489795918367
+      }
+    },
+    {
+      "runName": "fable-5-1-p1-r3",
+      "scored": true,
+      "numTests": 109,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.44,
+        "branches": 96,
+        "statements": 98.44,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 313,
+        "survived": 23,
+        "timeout": 25,
+        "noCoverage": 8,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 91.59891598915989
+      },
+      "precision": 100,
+      "f1": 95.61527581329563,
+      "smells": {
+        "total": 17,
+        "density": 0.1559633027522936,
+        "byType": {
+          "AnonymousTest": 16,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.5600000000000023,
+        "coverageBranches": 3.3299999999999983,
+        "mutationScore": 7.859078590785899,
+        "precision": 0,
+        "f1": 4.112985056269579,
+        "smellDensity": -0.1559633027522936
+      }
+    },
+    {
+      "runName": "fable-5-1-p1-r4",
+      "scored": true,
+      "numTests": 115,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.83,
+        "branches": 96.68,
+        "statements": 98.83,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 310,
+        "survived": 25,
+        "timeout": 27,
+        "noCoverage": 7,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 91.32791327913279
+      },
+      "precision": 100,
+      "f1": 95.46742209631728,
+      "smells": {
+        "total": 13,
+        "density": 0.11304347826086956,
+        "byType": {
+          "AnonymousTest": 12,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.1700000000000017,
+        "coverageBranches": 2.6499999999999915,
+        "mutationScore": 8.130081300813004,
+        "precision": 0,
+        "f1": 4.260838773247926,
+        "smellDensity": -0.11304347826086956
+      }
+    },
+    {
+      "runName": "fable-5-1-p1-r5",
+      "scored": true,
+      "numTests": 144,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.44,
+        "branches": 96,
+        "statements": 98.44,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 309,
+        "survived": 27,
+        "timeout": 25,
+        "noCoverage": 8,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 90.5149051490515
+      },
+      "precision": 100,
+      "f1": 95.02133712660029,
+      "smells": {
+        "total": 6,
+        "density": 0.041666666666666664,
+        "byType": {
+          "AnonymousTest": 5,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.5600000000000023,
+        "coverageBranches": 3.3299999999999983,
+        "mutationScore": 8.94308943089429,
+        "precision": 0,
+        "f1": 4.706923742964918,
+        "smellDensity": -0.041666666666666664
+      }
+    },
+    {
+      "runName": "fable-5-1-p2-r1",
+      "scored": true,
+      "numTests": 146,
+      "falsePositives": 2,
+      "coverage": {
+        "lines": 99.61,
+        "branches": 98.67,
+        "statements": 99.61,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 329,
+        "survived": 9,
+        "timeout": 28,
+        "noCoverage": 3,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 96.7479674796748
+      },
+      "precision": 98.63013698630137,
+      "f1": 97.67998631932964,
+      "smells": {
+        "total": 8,
+        "density": 0.0547945205479452,
+        "byType": {
+          "AnonymousTest": 6,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 2,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.39000000000000057,
+        "coverageBranches": 0.6599999999999966,
+        "mutationScore": 2.7100271002709917,
+        "precision": 1.3698630136986338,
+        "f1": 2.0482745502355613,
+        "smellDensity": -0.0547945205479452
+      }
+    },
+    {
+      "runName": "fable-5-1-p2-r2",
+      "scored": true,
+      "numTests": 182,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 328,
+        "survived": 9,
+        "timeout": 26,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 95.9349593495935
+      },
+      "precision": 99.45054945054946,
+      "f1": 97.66112622602253,
+      "smells": {
+        "total": 2,
+        "density": 0.01098901098901099,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 2,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 3.523035230352292,
+        "precision": 0.5494505494505404,
+        "f1": 2.0671346435426727,
+        "smellDensity": -0.01098901098901099
+      }
+    },
+    {
+      "runName": "fable-5-1-p2-r3",
+      "scored": true,
+      "numTests": 181,
+      "falsePositives": 1,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.35,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 325,
+        "survived": 10,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 95.6639566395664
+      },
+      "precision": 99.4475138121547,
+      "f1": 97.5190502866176,
+      "smells": {
+        "total": 4,
+        "density": 0.022099447513812154,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 1,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 3,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.980000000000004,
+        "mutationScore": 3.794037940379397,
+        "precision": 0.5524861878453038,
+        "f1": 2.2092105829476054,
+        "smellDensity": -0.022099447513812154
+      }
+    },
+    {
+      "runName": "fable-5-1-p2-r4",
+      "scored": true,
+      "numTests": 180,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 99.22,
+        "branches": 97.36,
+        "statements": 99.22,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 324,
+        "survived": 11,
+        "timeout": 28,
+        "noCoverage": 6,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 95.39295392953929
+      },
+      "precision": 100,
+      "f1": 97.64216366158114,
+      "smells": {
+        "total": 4,
+        "density": 0.022222222222222223,
+        "byType": {
+          "AnonymousTest": 2,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 2,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 0.7800000000000011,
+        "coverageBranches": 1.9699999999999989,
+        "mutationScore": 4.065040650406502,
+        "precision": 0,
+        "f1": 2.086097207984068,
+        "smellDensity": -0.022222222222222223
+      }
+    },
+    {
+      "runName": "fable-5-1-p2-r5",
+      "scored": true,
+      "numTests": 133,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 98.83,
+        "branches": 96.68,
+        "statements": 98.83,
+        "functions": 100
+      },
+      "mutation": {
+        "killed": 325,
+        "survived": 9,
+        "timeout": 28,
+        "noCoverage": 7,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 95.6639566395664
+      },
+      "precision": 100,
+      "f1": 97.78393351800554,
+      "smells": {
+        "total": 6,
+        "density": 0.045112781954887216,
+        "byType": {
+          "AnonymousTest": 5,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 1,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 1.1700000000000017,
+        "coverageBranches": 2.6499999999999915,
+        "mutationScore": 3.794037940379397,
+        "precision": 0,
+        "f1": 1.9443273515596644,
+        "smellDensity": -0.045112781954887216
+      }
+    },
+    {
+      "runName": "nvidia-nemotron-3-p1",
+      "scored": true,
+      "numTests": 14,
+      "falsePositives": 0,
+      "coverage": {
+        "lines": 87.2,
+        "branches": 78.26,
+        "statements": 87.2,
+        "functions": 90.24
+      },
+      "mutation": {
+        "killed": 199,
+        "survived": 80,
+        "timeout": 25,
+        "noCoverage": 65,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 60.70460704607046
+      },
+      "precision": 100,
+      "f1": 75.54806070826307,
+      "smells": {
+        "total": 2,
+        "density": 0.14285714285714285,
+        "byType": {
+          "AnonymousTest": 2,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 12.799999999999997,
+        "coverageBranches": 21.069999999999993,
+        "mutationScore": 38.75338753387533,
+        "precision": 0,
+        "f1": 24.18020016130214,
+        "smellDensity": -0.14285714285714285
+      }
+    },
+    {
+      "runName": "nvidia-nemotron-3-p2",
+      "scored": true,
+      "numTests": 12,
+      "falsePositives": 2,
+      "coverage": {
+        "lines": 91.47,
+        "branches": 87.09,
+        "statements": 91.47,
+        "functions": 95.12
+      },
+      "mutation": {
+        "killed": 235,
+        "survived": 76,
+        "timeout": 25,
+        "noCoverage": 33,
+        "excluded": 0,
+        "total": 369,
+        "mutationScore": 70.46070460704607
+      },
+      "precision": 83.33333333333334,
+      "f1": 76.35829662261379,
+      "smells": {
+        "total": 0,
+        "density": 0,
+        "byType": {
+          "AnonymousTest": 0,
+          "SensitiveEquality": 0,
+          "CommentsOnlyTest": 0,
+          "GeneralFixture": 0,
+          "TestWithoutDescription": 0,
+          "TranscriptingTest": 0,
+          "OvercommentedTest": 0,
+          "IdenticalTestDescription": 0,
+          "ComplexSnapshots": 0,
+          "ConditionalTestLogic": 0,
+          "NonFunctionalStatement": 0,
+          "OnlyTest": 0,
+          "SubOptimalAssert": 0,
+          "VerboseStatement": 0,
+          "VerifyInSetup": 0
+        }
+      },
+      "gaps": {
+        "coverageLines": 8.530000000000001,
+        "coverageBranches": 12.239999999999995,
+        "mutationScore": 28.997289972899722,
+        "precision": 16.666666666666657,
+        "f1": 23.36996424695141,
+        "smellDensity": 0
+      }
+    }
+  ]
+}
