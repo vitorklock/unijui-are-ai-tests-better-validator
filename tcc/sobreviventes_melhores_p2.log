@@ -1,0 +1,40 @@
+/tmp/sb_surv_fable-5-1-p2-r1 FPs desativados: 2
+== fable-5-1-p2-r1 {'NoCoverage': 3, 'Survived': 9, 'Killed': 329, 'Timeout': 28}
+   lexer.ts | 12 | StringLiteral | private currentChar: string = '\0';
+   lexer.ts | 70 | ConditionalExpression | case ',':
+   lexer.ts | 70 | StringLiteral | case ',':
+   lexer.ts | 74 | StringLiteral | token = this.getToken(TokenType.EOF, '\0');
+   lexer.ts | 109 | StringLiteral | return '\0';
+   lexer.ts | 167 | EqualityOperator | return charCode >= 0x30 && charCode <= 0x39; // '0'-'9'
+   lexer.ts | 173 | ConditionalExpression | (charCode >= 0x41 && charCode <= 0x5a) // A-Z
+   lexer.ts | 173 | EqualityOperator | (charCode >= 0x41 && charCode <= 0x5a) // A-Z
+   lexer.ts | 174 | ConditionalExpression | || (charCode >= 0x61 && charCode <= 0x7a) // a-z
+   lexer.ts | 174 | EqualityOperator | || (charCode >= 0x61 && charCode <= 0x7a) // a-z
+   parser.ts | 143 | BlockStatement | if (!this.expectPeekToken(TokenType.Rparn)) {
+   parser.ts | 144 | StringLiteral | throw new Error(`Expected ) but got ${this.peekToken}`)
+/tmp/sb_surv_gemini-pro-p2-r1 FPs desativados: 0
+== gemini-pro-p2-r1 {'NoCoverage': 6, 'Killed': 332, 'Timeout': 28, 'Survived': 3}
+   evaluator.ts | 47 | ConditionalExpression | default:
+   evaluator.ts | 48 | StringLiteral | throw new Error(`Operator ${expression.operator} not im
+   evaluator.ts | 77 | ConditionalExpression | default:
+   evaluator.ts | 78 | StringLiteral | throw new Error(`Invalid AST node${expression}`);
+   lexer.ts | 12 | StringLiteral | private currentChar: string = '\0';
+   lexer.ts | 109 | StringLiteral | return '\0';
+   lexer.ts | 140 | ConditionalExpression | if (Lexer.isDot(this.currentChar)) {
+   parser.ts | 143 | BlockStatement | if (!this.expectPeekToken(TokenType.Rparn)) {
+   parser.ts | 144 | StringLiteral | throw new Error(`Expected ) but got ${this.peekToken}`)
+/tmp/sb_surv_deepseek-v4-1-flash-p2-r2 FPs desativados: 0
+== deepseek-v4-1-flash-p2-r2 {'NoCoverage': 6, 'Killed': 328, 'Timeout': 28, 'Survived': 7}
+   evaluator.ts | 47 | ConditionalExpression | default:
+   evaluator.ts | 48 | StringLiteral | throw new Error(`Operator ${expression.operator} not im
+   evaluator.ts | 77 | ConditionalExpression | default:
+   evaluator.ts | 78 | StringLiteral | throw new Error(`Invalid AST node${expression}`);
+   lexer.ts | 12 | StringLiteral | private currentChar: string = '\0';
+   lexer.ts | 74 | StringLiteral | token = this.getToken(TokenType.EOF, '\0');
+   lexer.ts | 109 | StringLiteral | return '\0';
+   lexer.ts | 140 | ConditionalExpression | if (Lexer.isDot(this.currentChar)) {
+   lexer.ts | 150 | ConditionalExpression | const adjustment = type === TokenType.String ? 0 : 1;
+   lexer.ts | 173 | ConditionalExpression | (charCode >= 0x41 && charCode <= 0x5a) // A-Z
+   lexer.ts | 174 | ConditionalExpression | || (charCode >= 0x61 && charCode <= 0x7a) // a-z
+   parser.ts | 143 | BlockStatement | if (!this.expectPeekToken(TokenType.Rparn)) {
+   parser.ts | 144 | StringLiteral | throw new Error(`Expected ) but got ${this.peekToken}`)
